@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardova Capital — Complete Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Manrope',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;color:#40424D;background:#F1F1F1;min-height:100vh}
+
+  .topbar{background:#0A0A0A;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px;max-width:720px;margin:0 auto}
+  .topbar-logo{font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px;text-decoration:none;line-height:1.05;text-align:center}
+  .topbar-logo span{display:block;font-weight:400;letter-spacing:3px;font-size:9px;color:rgba(255,255,255,0.5)}
+  .topbar-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);border-radius:8px;cursor:pointer;transition:all 200ms;text-decoration:none}
+  .topbar-close:hover{background:rgba(255,255,255,0.1);color:#fff}
+
+  .page-header{background:#0A0A0A;padding:24px 20px 32px;text-align:center}
+  .page-header h1{font-size:24px;font-weight:800;color:#fff;margin-bottom:6px}
+  .page-header p{font-size:13px;color:rgba(255,255,255,0.45);max-width:400px;margin:0 auto}
+  @media(min-width:640px){.page-header{padding:32px 24px 40px}.page-header h1{font-size:28px}}
+
+  .form-wrapper{max-width:640px;margin:-16px auto 32px;padding:0 12px}
+  @media(min-width:640px){.form-wrapper{padding:0 20px;margin-top:-20px}}
+
+  .form-card{background:#fff;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.04);padding:28px 20px;margin-bottom:20px}
+  @media(min-width:640px){.form-card{padding:36px 32px}}
+
+  .section-title{font-size:16px;font-weight:800;color:#1E1E24;margin-bottom:4px}
+  .section-sub{font-size:12px;color:#9DA2B3;margin-bottom:20px}
+  .section-divider{border:none;border-top:1px solid #EDEFF7;margin:24px 0}
+
+  .field{margin-bottom:16px}
+  .field-label{display:block;font-size:13px;font-weight:600;color:#1E1E24;margin-bottom:5px}
+  .field-label .req{color:#C5A35D}
+  .field-input{width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid #E8E8E8;font-size:14px;font-family:'Manrope',sans-serif;color:#1E1E24;outline:none;transition:all 200ms;background:#FAFAFA;min-height:46px}
+  .field-input:focus{border-color:#0A0A0A;box-shadow:0 0 0 3px rgba(10,10,10,0.05);background:#fff}
+  .field-input::placeholder{color:#BCBFCC}
+  .field-input.prefilled{background:#F8F8F0;border-color:#C5A35D40}
+  select.field-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%239DA2B3' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  .radio-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .radio-label{display:flex;align-items:center;gap:6px;padding:10px 14px;border:1.5px solid #E8E8E8;border-radius:10px;font-size:13px;font-weight:500;color:#40424D;cursor:pointer;transition:all 150ms;background:#FAFAFA}
+  .radio-label:hover{border-color:rgba(10,10,10,0.3)}
+  .radio-label input{display:none}
+  .radio-label input:checked+span{color:#fff}
+  .radio-label:has(input:checked){background:#0A0A0A;color:#fff;border-color:#0A0A0A}
+  .radio-dot{width:16px;height:16px;border-radius:50%;border:2px solid #D3D6E0;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 150ms}
+  .radio-label:has(input:checked) .radio-dot{border-color:#C5A35D;background:#C5A35D}
+  .radio-label:has(input:checked) .radio-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:#0A0A0A}
+
+  .upload-area{border:2px dashed #D3D6E0;border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all 200ms;background:#FAFAFA;position:relative}
+  .upload-area:hover{border-color:#0A0A0A;background:#F8F8F8}
+  .upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .upload-icon{margin:0 auto 8px;color:#9DA2B3}
+  .upload-text{font-size:13px;color:#6E7180;font-weight:500}
+  .upload-text strong{color:#0A0A0A}
+  .upload-hint{font-size:11px;color:#9DA2B3;margin-top:4px}
+  .upload-filename{font-size:12px;color:#C5A35D;font-weight:600;margin-top:6px}
+
+  .legal-box{background:#FAFAFA;border:1px solid #EDEFF7;border-radius:12px;padding:16px;margin-bottom:20px}
+  .legal-box p{font-size:11px;color:#6E7180;line-height:1.6}
+  .legal-box strong{color:#1E1E24}
+  .checkbox-row{display:flex;align-items:flex-start;gap:10px;margin-top:12px}
+  .checkbox-row input[type="checkbox"]{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:#0A0A0A}
+  .checkbox-row label{font-size:12px;color:#40424D;line-height:1.5;cursor:pointer}
+
+  .submit-btn{width:100%;padding:16px;background:#C5A35D;color:#0A0A0A;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;transition:all 200ms;font-family:'Manrope',sans-serif;min-height:54px}
+  .submit-btn:hover{background:#d4b36c}
+  .submit-btn:disabled{opacity:0.5;cursor:not-allowed}
+
+  .error-msg{color:#dc2626;font-size:12px;font-weight:500;margin-top:4px}
+  .form-footer{text-align:center;font-size:11px;color:#9DA2B3;padding:0 20px 32px}
+  .form-footer a{color:#6E7180;text-decoration:underline}
+</style>
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1537113287765972');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1537113287765972&ev=PageView&noscript=1"/></noscript>
+<!-- End Facebook Pixel -->
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="topbar-logo">CARDOVA<span>CAPITAL</span></a>
+    <a href="#" class="topbar-close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Complete Your Application</h1>
+  <p>Finalize your details and upload your bank statements to receive your funding offer.</p>
+</div>
+
+<!-- FORM -->
+<div class="form-wrapper">
+
+  <!-- BUSINESS INFO -->
+  <div class="form-card">
+    <div class="section-title">Business Information</div>
+    <div class="section-sub">Fields marked with * are pre-filled from your application.</div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">First Name <span class="req">*</span></label>
+        <input type="text" class="field-input prefilled" id="fname">
+      </div>
+      <div class="field">
+        <label class="field-label">Last Name <span class="req">*</span></label>
+        <input type="text" class="field-input prefilled" id="lname">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Business Name <span class="req">*</span></label>
+      <input type="text" class="field-input" id="bizname" placeholder="Legal business name">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Tax ID / EIN</label>
+      <input type="text" class="field-input" id="ein" placeholder="XX-XXXXXXX">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Date Business Started <span class="req">*</span></label>
+      <input type="date" class="field-input" id="biz-start">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Business Address <span class="req">*</span></label>
+      <input type="text" class="field-input" id="biz-address" placeholder="Street address, City, State, ZIP">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Legal Business Type <span class="req">*</span></label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="biztype" value="sole"><div class="radio-dot"></div><span>Sole Proprietorship</span></label>
+        <label class="radio-label"><input type="radio" name="biztype" value="llc"><div class="radio-dot"></div><span>LLC</span></label>
+        <label class="radio-label"><input type="radio" name="biztype" value="corp"><div class="radio-dot"></div><span>Corporation</span></label>
+        <label class="radio-label"><input type="radio" name="biztype" value="partnership"><div class="radio-dot"></div><span>Partnership</span></label>
+        <label class="radio-label"><input type="radio" name="biztype" value="other"><div class="radio-dot"></div><span>Other</span></label>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Amount Requested <span class="req">*</span></label>
+        <input type="text" class="field-input prefilled" id="amount-req">
+      </div>
+      <div class="field">
+        <label class="field-label">Credit Score <span class="req">*</span></label>
+        <input type="text" class="field-input prefilled" id="credit-score">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Monthly Revenue <span class="req">*</span></label>
+      <input type="text" class="field-input prefilled" id="monthly-rev">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Products / Services Sold <span class="req">*</span></label>
+      <input type="text" class="field-input" id="products" placeholder="Briefly describe what your business does">
+    </div>
+  </div>
+
+  <!-- OWNER INFO -->
+  <div class="form-card">
+    <div class="section-title">Owner Information</div>
+    <div class="section-sub">Details about the primary business owner.</div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Owner Email <span class="req">*</span></label>
+        <input type="email" class="field-input prefilled" id="owner-email">
+      </div>
+      <div class="field">
+        <label class="field-label">Owner Phone <span class="req">*</span></label>
+        <input type="tel" class="field-input prefilled" id="owner-phone">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Owner Home Address <span class="req">*</span></label>
+      <input type="text" class="field-input" id="owner-address" placeholder="Street address, City, State, ZIP">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label class="field-label">Date of Birth <span class="req">*</span></label>
+        <input type="date" class="field-input" id="owner-dob">
+      </div>
+      <div class="field">
+        <label class="field-label">Social Security Number <span class="req">*</span></label>
+        <input type="text" class="field-input" id="owner-ssn" placeholder="XXX-XX-XXXX" inputmode="numeric">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Ownership Percentage <span class="req">*</span></label>
+      <input type="text" class="field-input" id="ownership-pct" placeholder="e.g. 100%">
+    </div>
+  </div>
+
+  <!-- BANK STATEMENTS -->
+  <div class="form-card">
+    <div class="section-title">Bank Statements</div>
+    <div class="section-sub">Upload your last 3 months of business bank statements in PDF format.</div>
+
+    <div class="field">
+      <label class="field-label">Statement 1 (Most Recent) <span class="req">*</span></label>
+      <div class="upload-area" id="upload1">
+        <input type="file" accept=".pdf" onchange="showFile(this,'file1-name')">
+        <div class="upload-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9DA2B3" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+        <div class="upload-text"><strong>Click to upload</strong> or drag and drop</div>
+        <div class="upload-hint">PDF format only</div>
+        <div class="upload-filename" id="file1-name"></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Statement 2 <span class="req">*</span></label>
+      <div class="upload-area" id="upload2">
+        <input type="file" accept=".pdf" onchange="showFile(this,'file2-name')">
+        <div class="upload-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9DA2B3" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+        <div class="upload-text"><strong>Click to upload</strong> or drag and drop</div>
+        <div class="upload-hint">PDF format only</div>
+        <div class="upload-filename" id="file2-name"></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Statement 3 <span class="req">*</span></label>
+      <div class="upload-area" id="upload3">
+        <input type="file" accept=".pdf" onchange="showFile(this,'file3-name')">
+        <div class="upload-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9DA2B3" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+        <div class="upload-text"><strong>Click to upload</strong> or drag and drop</div>
+        <div class="upload-hint">PDF format only</div>
+        <div class="upload-filename" id="file3-name"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGAL & SUBMIT -->
+  <div class="form-card">
+    <div class="legal-box">
+      <p>By submitting and signing below, I/we authorize <strong>Cardova Capital LLC</strong> and its partners to obtain consumer, personal, business, and investigative reports from credit reporting agencies and other sources to evaluate my/our application for business financing. I/we understand that this authorization allows Cardova Capital LLC to share my/our information with its lending partners, financial institutions, and affiliated third parties for the purpose of processing this application.</p>
+      <p style="margin-top:8px;">I/we also consent to receive communications via phone, email, and text message (up to 10 messages per month) regarding my/our application. Message and data rates may apply. You can opt out at any time by contacting us at <strong>(800) 659-9933</strong>.</p>
+      <div class="checkbox-row">
+        <input type="checkbox" id="agree-check">
+        <label for="agree-check">I agree to the above terms, the <a href="#" style="color:#0A0A0A;text-decoration:underline;">Privacy Policy</a>, and <a href="#" style="color:#0A0A0A;text-decoration:underline;">Terms of Service</a> of Cardova Capital LLC.</label>
+      </div>
+    </div>
+
+    <div id="submit-error"></div>
+    <button class="submit-btn" onclick="submitApplication()">Submit Application</button>
+  </div>
+
+</div>
+
+<div class="form-footer">
+  <p>&copy; 2026 Cardova Capital LLC. All rights reserved. <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a></p>
+</div>
+
+<script>
+function showFile(input, targetId) {
+  var el = document.getElementById(targetId);
+  if (input.files && input.files[0]) {
+    el.textContent = '✓ ' + input.files[0].name;
+  }
+}
+
+// Pre-fill from URL params
+(function() {
+  var p = new URLSearchParams(window.location.search);
+  var name = (p.get('name') || '').trim().split(/\s+/);
+  document.getElementById('fname').value = name[0] || '';
+  document.getElementById('lname').value = name.slice(1).join(' ') || '';
+  document.getElementById('owner-email').value = p.get('email') || '';
+  document.getElementById('owner-phone').value = p.get('phone') || '';
+  document.getElementById('amount-req').value = p.get('amount') || '';
+  document.getElementById('credit-score').value = p.get('credit') || '';
+  document.getElementById('monthly-rev').value = p.get('sales') || '';
+})();
+
+function submitApplication() {
+  var ea = document.getElementById('submit-error');
+  ea.innerHTML = '';
+
+  if (!document.getElementById('bizname').value.trim()) {
+    ea.innerHTML = '<p class="error-msg">Please enter your business name</p>'; return;
+  }
+  if (!document.getElementById('biz-address').value.trim()) {
+    ea.innerHTML = '<p class="error-msg">Please enter your business address</p>'; return;
+  }
+  if (!document.querySelector('input[name="biztype"]:checked')) {
+    ea.innerHTML = '<p class="error-msg">Please select your business type</p>'; return;
+  }
+  if (!document.getElementById('products').value.trim()) {
+    ea.innerHTML = '<p class="error-msg">Please describe your products/services</p>'; return;
+  }
+  if (!document.getElementById('owner-address').value.trim()) {
+    ea.innerHTML = '<p class="error-msg">Please enter the owner\'s home address</p>'; return;
+  }
+  if (!document.getElementById('owner-dob').value) {
+    ea.innerHTML = '<p class="error-msg">Please enter the owner\'s date of birth</p>'; return;
+  }
+  if (!document.getElementById('owner-ssn').value.trim()) {
+    ea.innerHTML = '<p class="error-msg">Please enter the owner\'s SSN</p>'; return;
+  }
+  if (!document.getElementById('ownership-pct').value.trim()) {
+    ea.innerHTML = '<p class="error-msg">Please enter ownership percentage</p>'; return;
+  }
+  if (!document.getElementById('agree-check').checked) {
+    ea.innerHTML = '<p class="error-msg">Please agree to the terms to submit</p>'; return;
+  }
+
+  var bizType = document.querySelector('input[name="biztype"]:checked');
+  var payload = {
+    timestamp: new Date().toLocaleString(),
+    firstName: document.getElementById('fname').value,
+    lastName: document.getElementById('lname').value,
+    businessName: document.getElementById('bizname').value,
+    ein: document.getElementById('ein').value,
+    businessStartDate: document.getElementById('biz-start').value,
+    businessAddress: document.getElementById('biz-address').value,
+    businessType: bizType ? bizType.value : '',
+    amountRequested: document.getElementById('amount-req').value,
+    creditScore: document.getElementById('credit-score').value,
+    monthlyRevenue: document.getElementById('monthly-rev').value,
+    productsServices: document.getElementById('products').value,
+    ownerEmail: document.getElementById('owner-email').value,
+    ownerPhone: document.getElementById('owner-phone').value,
+    ownerAddress: document.getElementById('owner-address').value,
+    ownerDOB: document.getElementById('owner-dob').value,
+    ownerSSN: document.getElementById('owner-ssn').value,
+    ownershipPct: document.getElementById('ownership-pct').value,
+    sheet: 'Funding Applications'
+  };
+
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyoJ2xxc7MG5vIdb51pZIgvrNdDBhbt2rdnwsOvy8nvH51hJvQB1FdwJ8rXq1N17CLp/exec';
+  
+  // Send to Google Sheets
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', GOOGLE_SCRIPT_URL, true);
+  xhr.setRequestHeader('Content-Type', 'text/plain');
+  xhr.send(JSON.stringify(payload));
+
+  // Send Slack notification
+  var slackMsg = {
+    text: '🟡 *Funding Application Submitted*\n' +
+      '>*Name:* ' + payload.firstName + ' ' + payload.lastName + '\n' +
+      '>*Business:* ' + payload.businessName + '\n' +
+      '>*Email:* ' + payload.ownerEmail + '\n' +
+      '>*Phone:* ' + payload.ownerPhone + '\n' +
+      '>*Amount:* ' + payload.amountRequested + '\n' +
+      '>*Monthly Revenue:* ' + payload.monthlyRevenue + '\n' +
+      '>*Credit Score:* ' + payload.creditScore + '\n' +
+      '>*Business Type:* ' + payload.businessType + '\n' +
+      '>*Products/Services:* ' + payload.productsServices
+  };
+  var xhr2 = new XMLHttpRequest();
+  xhr2.open('POST', 'https://hooks.slack.com/services/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', true);
+  xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr2.send('payload=' + encodeURIComponent(JSON.stringify(slackMsg)));
+
+  // Redirect after short delay to ensure data sends
+  setTimeout(function() {
+    window.location.href = '/application-received';
+  }, 1000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/apply", "destination": "/apply.html" },
+    { "source": "/qualified", "destination": "/qualified.html" },
+    { "source": "/thankyou", "destination": "/thankyou.html" },
+    { "source": "/application", "destination": "/application.html" },
+    { "source": "/application-received", "destination": "/application-received.html" }
+  ],
+  "cleanUrls": true
+}
