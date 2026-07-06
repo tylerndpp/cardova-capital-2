@@ -7,5 +7,5 @@
     { "source": "/application", "destination": "/application.html" },
     { "source": "/application-received", "destination": "/application-received.html" }
   ],
-  "cleanUrls": true
+    "cleanUrls": true
 }

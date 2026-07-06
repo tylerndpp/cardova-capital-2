@@ -89,6 +89,13 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1537113287765972&ev=PageView&noscript=1"/></noscript>
 <!-- End Facebook Pixel -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "x8lu9devtj");
+</script>
 </head>
 <body>
 
@@ -264,7 +271,7 @@ fbq('track', 'PageView');
       <p style="margin-top:8px;">I/we also consent to receive communications via phone, email, and text message (up to 10 messages per month) regarding my/our application. Message and data rates may apply. You can opt out at any time by contacting us at <strong>(800) 659-9933</strong>.</p>
       <div class="checkbox-row">
         <input type="checkbox" id="agree-check">
-        <label for="agree-check">I agree to the above terms, the <a href="#" style="color:#0A0A0A;text-decoration:underline;">Privacy Policy</a>, and <a href="#" style="color:#0A0A0A;text-decoration:underline;">Terms of Service</a> of Cardova Capital LLC.</label>
+        <label for="agree-check">By submitting my application, I consent to the <a href="#" style="color:#0A0A0A;text-decoration:underline;">Disclaimer</a>, <a href="#" style="color:#0A0A0A;text-decoration:underline;">Privacy Policy</a>, and <a href="#" style="color:#0A0A0A;text-decoration:underline;">Terms of Service</a>, as well as Cardova Capital LLC and its partners contacting me via phone, email, and SMS.</label>
       </div>
     </div>
 
@@ -286,6 +293,18 @@ function showFile(input, targetId) {
   }
 }
 
+function fileToBase64(file) {
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function() {
+      // result is "data:application/pdf;base64,XXXXX" — strip the prefix
+      resolve(reader.result.split(',')[1]);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 // Pre-fill from URL params
 (function() {
   var p = new URLSearchParams(window.location.search);
@@ -299,7 +318,8 @@ function showFile(input, targetId) {
   document.getElementById('monthly-rev').value = p.get('sales') || '';
 })();
 
-function submitApplication() {
+async function submitApplication() {
+  var btn = document.querySelector('.submit-btn');
   var ea = document.getElementById('submit-error');
   ea.innerHTML = '';
 
@@ -331,11 +351,42 @@ function submitApplication() {
     ea.innerHTML = '<p class="error-msg">Please agree to the terms to submit</p>'; return;
   }
 
+  // Collect file inputs
+  var file1 = document.querySelector('#upload1 input[type="file"]').files[0];
+  var file2 = document.querySelector('#upload2 input[type="file"]').files[0];
+  var file3 = document.querySelector('#upload3 input[type="file"]').files[0];
+
+  if (!file1 || !file2 || !file3) {
+    ea.innerHTML = '<p class="error-msg">Please upload all 3 bank statements</p>'; return;
+  }
+
+  // Disable button and show uploading state
+  btn.disabled = true;
+  btn.textContent = 'Uploading statements…';
+
   var bizType = document.querySelector('input[name="biztype"]:checked');
+  var firstName = document.getElementById('fname').value;
+  var lastName = document.getElementById('lname').value;
+
+  // Convert PDFs to base64
+  var b64_1, b64_2, b64_3;
+  try {
+    b64_1 = await fileToBase64(file1);
+    b64_2 = await fileToBase64(file2);
+    b64_3 = await fileToBase64(file3);
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Submit Application';
+    ea.innerHTML = '<p class="error-msg">Failed to read files. Please try again.</p>';
+    return;
+  }
+
+  btn.textContent = 'Submitting application…';
+
   var payload = {
     timestamp: new Date().toLocaleString(),
-    firstName: document.getElementById('fname').value,
-    lastName: document.getElementById('lname').value,
+    firstName: firstName,
+    lastName: lastName,
     businessName: document.getElementById('bizname').value,
     ein: document.getElementById('ein').value,
     businessStartDate: document.getElementById('biz-start').value,
@@ -351,39 +402,49 @@ function submitApplication() {
     ownerDOB: document.getElementById('owner-dob').value,
     ownerSSN: document.getElementById('owner-ssn').value,
     ownershipPct: document.getElementById('ownership-pct').value,
-    sheet: 'Funding Applications'
+    sheet: 'Funding Applications',
+    // Bank statements as base64 for Google Drive upload
+    uploadFiles: true,
+    applicantName: firstName + ' ' + lastName,
+    files: [
+      { name: file1.name, data: b64_1 },
+      { name: file2.name, data: b64_2 },
+      { name: file3.name, data: b64_3 }
+    ]
   };
 
   var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyoJ2xxc7MG5vIdb51pZIgvrNdDBhbt2rdnwsOvy8nvH51hJvQB1FdwJ8rXq1N17CLp/exec';
-  
-  // Send to Google Sheets
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', GOOGLE_SCRIPT_URL, true);
-  xhr.setRequestHeader('Content-Type', 'text/plain');
-  xhr.send(JSON.stringify(payload));
 
-  // Send Slack notification
-  var slackMsg = {
-    text: '🟡 *Funding Application Submitted*\n' +
-      '>*Name:* ' + payload.firstName + ' ' + payload.lastName + '\n' +
-      '>*Business:* ' + payload.businessName + '\n' +
-      '>*Email:* ' + payload.ownerEmail + '\n' +
-      '>*Phone:* ' + payload.ownerPhone + '\n' +
-      '>*Amount:* ' + payload.amountRequested + '\n' +
-      '>*Monthly Revenue:* ' + payload.monthlyRevenue + '\n' +
-      '>*Credit Score:* ' + payload.creditScore + '\n' +
-      '>*Business Type:* ' + payload.businessType + '\n' +
-      '>*Products/Services:* ' + payload.productsServices
-  };
-  var xhr2 = new XMLHttpRequest();
-  xhr2.open('POST', 'https://hooks.slack.com/services/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', true);
-  xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr2.send('payload=' + encodeURIComponent(JSON.stringify(slackMsg)));
+  // Send to Apps Script — it handles Drive upload + Sheet row
+  var driveFolder = '';
+  try {
+    var res = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    });
+    var result = await res.json();
+    driveFolder = result.folderLink || '';
+  } catch (err) {
+    // Still redirect even if we can't read the response
+  }
 
-  // Redirect after short delay to ensure data sends
-  setTimeout(function() {
-    window.location.href = '/application-received';
-  }, 1000);
+  // Slack notification with Drive folder link
+  var slackText = '🟡 <!channel> *Funding Application Submitted*\n' +
+    '>*Name:* ' + firstName + ' ' + lastName + '\n' +
+    '>*Business:* ' + payload.businessName + '\n' +
+    '>*Email:* ' + payload.ownerEmail + '\n' +
+    '>*Phone:* ' + payload.ownerPhone + '\n' +
+    '>*Amount:* ' + payload.amountRequested + '\n' +
+    '>*Monthly Revenue:* ' + payload.monthlyRevenue + '\n' +
+    '>*Credit Score:* ' + payload.creditScore + '\n' +
+    '>*Business Type:* ' + payload.businessType + '\n' +
+    '>*Products/Services:* ' + payload.productsServices;
+  if (driveFolder) slackText += '\n>*Bank Statements:* ' + driveFolder;
+
+  fetch('/api/notify', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:slackText}),keepalive:true}).catch(function(){});
+
+  window.location.href = '/application-received';
 }
 </script>
 </body>

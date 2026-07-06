@@ -34,11 +34,12 @@
   @media(min-width:640px){.progress-section{padding:18px 24px}.progress-dot{width:32px;height:32px;font-size:12px}.progress-step-label{font-size:10px}}
 
   /* === MAIN CONTENT === */
-  .main-area{flex:1;display:flex;flex-direction:column;align-items:center;padding:24px 16px 0}
+  .main-area{flex:1;display:flex;flex-direction:column;align-items:center;padding:20px 16px 0}
   @media(min-width:640px){.main-area{padding:40px 32px 0;align-items:center}}
   .question-container{width:100%;max-width:520px;transition:all 250ms ease-out}
-  .question-container.hidden{opacity:0;transform:translateY(10px)}
-  .question-container.visible{opacity:1;transform:translateY(0)}
+  
+  
+  .question-container.visible{opacity:1;transform:translateX(0)}
 
   /* === BACK BUTTON === */
   .back-btn{display:inline-flex;align-items:center;gap:6px;color:#9DA2B3;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:16px;margin-left:auto;margin-right:auto;transition:color 200ms;background:none;border:none;font-family:inherit}
@@ -85,6 +86,20 @@
   
   
 
+  
+  /* === LANDING HEADER (step 0 only) === */
+  .landing-header{background:#fff;padding:24px 20px 16px;text-align:center}
+  .landing-header h1{font-size:22px;font-weight:800;color:#1E1E24;margin-bottom:8px;line-height:1.3}
+  .landing-header p{font-size:13px;color:#6E7180;max-width:400px;margin:0 auto;line-height:1.5}
+  @media(min-width:640px){.landing-header h1{font-size:26px}.landing-header p{font-size:14px}}
+  .landing-steps{display:flex;align-items:center;justify-content:center;gap:0;max-width:360px;margin:0 auto;padding:0}
+  .landing-step{display:flex;flex-direction:column;align-items:center;gap:5px}
+  .landing-step-num{width:30px;height:30px;border-radius:50%;background:#EDEFF7;color:#9DA2B3;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+  .landing-step-num.active{background:#C5A35D;color:#0A0A0A}
+  .landing-step-text{font-size:9px;font-weight:600;color:#9DA2B3;white-space:nowrap;letter-spacing:0.3px}
+  .landing-step-text.active{color:#1E1E24}
+  .landing-line{flex:1;height:4px;background:#EDEFF7;border-radius:100px;margin:0 6px;margin-bottom:20px;position:relative;overflow:hidden}
+
   /* === LEGAL === */
   .legal-text{text-align:center;font-size:11px;color:#9DA2B3;margin-top:14px;line-height:1.5}
   .legal-text a{color:#6E7180;text-decoration:underline}
@@ -101,6 +116,13 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1537113287765972&ev=PageView&noscript=1"/></noscript>
 <!-- End Facebook Pixel -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "x8lu9devtj");
+</script>
 </head>
 <body>
 
@@ -114,22 +136,30 @@ fbq('track', 'PageView');
   </div>
 </div>
 
-<!-- PROGRESS BAR -->
-<div class="progress-section">
-  <div class="progress-steps" id="progress-steps">
-    <div class="progress-step active">
-      <div class="progress-dot active">1</div>
-      <div class="progress-step-label">Business Info</div>
+
+
+<!-- LANDING HEADER (step 0 only) -->
+<div id="landing-header" class="landing-header">
+  <h1>Get a Direct Quote for Business Funding <span style="text-decoration:underline;text-decoration-color:#C5A35D;text-underline-offset:4px;text-decoration-thickness:3px;">in Minutes</span></h1>
+  
+</div>
+
+<!-- PROGRESS BAR (always same position) -->
+<div style="background:#fff;padding:14px 20px;border-bottom:1px solid #EDEFF7;">
+  <div class="landing-steps">
+    <div class="landing-step">
+      <div class="landing-step-num active">1</div>
+      <div class="landing-step-text active">Fill Out Form</div>
     </div>
-    <div class="progress-connector"><div class="progress-connector-fill" style="width:0%"></div></div>
-    <div class="progress-step">
-      <div class="progress-dot">2</div>
-      <div class="progress-step-label">Financial Info</div>
+    <div class="landing-line"><div class="landing-line-fill" style="position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#C5A35D,#d4b36c);border-radius:100px;width:0%;transition:width 400ms ease;"></div></div>
+    <div class="landing-step">
+      <div class="landing-step-num">2</div>
+      <div class="landing-step-text">Get Your Quote</div>
     </div>
-    <div class="progress-connector"><div class="progress-connector-fill" style="width:0%"></div></div>
-    <div class="progress-step">
-      <div class="progress-dot">3</div>
-      <div class="progress-step-label">Get Quote!</div>
+    <div class="landing-line"><div class="landing-line-fill" style="position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#C5A35D,#d4b36c);border-radius:100px;width:0%;transition:width 400ms ease;"></div></div>
+    <div class="landing-step">
+      <div class="landing-step-num">3</div>
+      <div class="landing-step-text">Get Funded!</div>
     </div>
   </div>
 </div>
@@ -162,7 +192,7 @@ function renderTrustBadges() {
 const AMOUNT_OPTIONS = ['$250,000+','$100,000 – $249,999','$50,000 – $99,999','$10,000 – $49,999','Under $10,000'];
 const TIME_OPTIONS = ['3+ years','2 – 3 years','1 – 2 years','6 – 12 months','Less than 6 months'];
 const LOAN_PURPOSE = ['Expansion','Equipment Purchase','Inventory','Working Capital','Remodel My Location','Finance Accounts Receivable','Other'];
-const MONTHLY_SALES = ['$1.5M+','$750,000 – $1.5M','$350,000 – $750,000','$150,000 – $350,000','$50,000 – $150,000','$20,000 – $50,000','$0 – $20,000'];
+const MONTHLY_SALES = ['$0 – $20,000','$20,000 – $50,000','$50,000 – $150,000','$150,000 – $350,000','$350,000 – $750,000','$750,000 – $1.5M','$1.5M+'];
 const CREDIT_RANGES = ['Excellent (720+)','Good (690 – 719)','Fair (500 – 619)','Poor (Below 500)'];
 const TIMELINE_OPTIONS = ['Immediately','Within 1 week','Within 2 weeks','Unsure, just browsing'];
 
@@ -254,8 +284,7 @@ function renderStep() {
 
   switch(currentStep) {
     case 0:
-      html = '<h2 class="question-title">How much funding are you looking for your business?</h2>' +
-        '<p style="text-align:center;font-size:14px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;">Knowing the size of your business loan will help us match you with a suitable lender.</p>' +
+      html = '<h2 class="question-title">How much funding are you looking for?</h2>' +
         renderOptions(AMOUNT_OPTIONS,'amount') + renderTrustBadges();
       break;
     case 1:
@@ -307,22 +336,76 @@ function renderStep() {
       break;
     case 10:
       html = renderBack() +
-        '<div style="text-align:center;margin-bottom:20px;">' +
-          '<div style="width:52px;height:52px;border-radius:50%;background:#0A0A0A;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-          '<div style="font-size:13px;font-weight:700;color:#C5A35D;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">Congratulations</div>' +
+        '<div style="text-align:center;margin-bottom:16px;">' +
+          '<div style="width:52px;height:52px;border-radius:50%;background:#C5A35D;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>' +
         '</div>' +
-        '<h2 class="question-title" style="margin-bottom:8px;">You Are Pre-Qualified!</h2>' +
-        '<p style="text-align:center;font-size:14px;color:#6E7180;margin-bottom:28px;line-height:1.6;">We have a quote ready for you. Complete the form below and we\'ll send it to you immediately.</p>' +
+        '<h2 class="question-title" style="margin-bottom:6px;font-size:26px;">Your Quote Is Almost Ready!</h2>' +
+        '<p style="text-align:center;font-size:14px;color:#1E1E24;margin-bottom:6px;line-height:1.5;font-weight:700;">We found <span style=\'color:#C5A35D;font-size:18px;font-weight:800;\'>1 lender</span> matching your profile.</p>' +
+        '<p style="text-align:center;font-size:13px;color:#6E7180;margin-bottom:20px;line-height:1.5;">Enter your contact info below and we\'ll send your personalized quote with rates, terms, and funding amounts directly to you.</p>' +
+        '' +
         '<div class="input-wrapper"><input type="email" inputmode="email" class="text-input" id="email-input" placeholder="Email address" value="'+(data.email||'')+'" oninput="data.email=this.value;var ea=document.getElementById(\'error-area\');if(ea)ea.innerHTML=\'\'" onkeydown="if(event.key===\'Enter\')document.getElementById(\'phone-input\').focus()"></div>' +
         '<div class="input-wrapper"><div class="input-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>' +
-        '<input type="tel" inputmode="tel" class="text-input has-icon" id="phone-input" placeholder="(555) 123-4567" value="'+(data.phone||'')+'" oninput="data.phone=formatPhone(this.value);this.value=data.phone;var ea=document.getElementById(\'error-area\');if(ea)ea.innerHTML=\'\'" onkeydown="if(event.key===\'Enter\')submitForm()"></div>' +
+        '<input type="tel" inputmode="tel" class="text-input has-icon" id="phone-input" placeholder="(555) 123-4567" value="'+(data.phone||'')+'" oninput="data.phone=formatPhone(this.value);this.value=data.phone;var ea=document.getElementById(\'error-area\');if(ea)ea.innerHTML=\'\'" onkeydown="if(event.key===\'Enter\')sendOTP()"></div>' +
+        '<div id="otp-section" style="display:none;margin-top:16px;">' +
+          '<p style="text-align:center;font-size:13px;color:#6E7180;margin-bottom:10px;">Enter the 6-digit code sent to your phone</p>' +
+          '<input type="text" inputmode="numeric" class="text-input" id="otp-input" placeholder="000000" maxlength="6" style="text-align:center;font-size:24px;letter-spacing:8px;font-weight:700;" onkeydown="if(event.key===\'Enter\')verifyOTP()" oninput="if(this.value.length===6)verifyOTP()">' +
+          '<p id="otp-status" style="text-align:center;font-size:12px;color:#6E7180;margin-top:8px;"></p>' +
+          '<button style="background:none;border:none;color:#C5A35D;font-size:12px;font-weight:600;cursor:pointer;margin-top:6px;width:100%;text-align:center;font-family:inherit;" onclick="sendOTP()">Resend Code</button>' +
+        '</div>' +
+        '<div style="display:flex;align-items:flex-start;gap:8px;margin-top:20px;">' +
+        '<input type="checkbox" id="consent-check" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:#0A0A0A;">' +
+        '<label for="consent-check" style="font-size:11px;color:#6E7180;line-height:1.5;cursor:pointer;">By submitting my application, I consent to the <a href=\"#\" style=\"color:#0A0A0A;text-decoration:underline;\">Disclaimer</a>, <a href=\"#\" style=\"color:#0A0A0A;text-decoration:underline;\">Privacy Policy</a>, and <a href=\"#\" style=\"color:#0A0A0A;text-decoration:underline;\">Terms of Service</a>, as well as Cardova Capital and its partners contacting me via phone, email, and SMS.</label>' +
+        '</div>' +
         '<div id="error-area"></div>' +
-        '<button class="submit-btn" onclick="submitForm()">Get My Quote</button>' +
-        '<p class="legal-text">By submitting, you agree to our <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.</p>';
+        '<button class="submit-btn" id="submit-btn" onclick="sendOTP()">Verify Phone & Get My Quote</button>';
       break;
   }
 
   c.innerHTML = html;
+
+  // Show/hide headline for step 0
+  var landingH1 = document.querySelector('.landing-header h1');
+  var landingHeader = document.getElementById('landing-header');
+  if (currentStep === 0) {
+    if (landingH1) { landingH1.style.display = 'block'; landingH1.style.opacity = '1'; landingH1.style.transform = 'translateX(0)'; }
+    if (landingHeader) landingHeader.style.display = 'block';
+  } else {
+    if (landingH1) landingH1.style.display = 'none';
+    if (landingHeader) landingHeader.style.display = 'none';
+  }
+
+  // Update the step indicators
+  var stepNums = document.querySelectorAll('.landing-step-num');
+  var stepTexts = document.querySelectorAll('.landing-step-text');
+  var group;
+  if (currentStep <= 4) group = 0;
+  else if (currentStep <= 8) group = 1;
+  else group = 2;
+  var check = '\u2713';
+  var lineFills = document.querySelectorAll('.landing-line-fill');
+  var groupSteps = [{start:0,end:4},{start:5,end:8},{start:9,end:10}];
+  for (var i = 0; i < 3; i++) {
+    stepNums[i].className = 'landing-step-num';
+    stepTexts[i].className = 'landing-step-text';
+    if (i < group) {
+      stepNums[i].classList.add('active');
+      stepNums[i].textContent = check;
+      stepTexts[i].classList.add('active');
+      if (i < lineFills.length) lineFills[i].style.width = '100%';
+    } else if (i === group) {
+      stepNums[i].classList.add('active');
+      stepNums[i].textContent = (i + 1);
+      stepTexts[i].classList.add('active');
+      if (i < lineFills.length) {
+        var g = groupSteps[i];
+        var pct = ((currentStep - g.start) / (g.end - g.start)) * 100;
+        lineFills[i].style.width = Math.min(100, pct) + '%';
+      }
+    } else {
+      stepNums[i].textContent = (i + 1);
+      if (i < lineFills.length) lineFills[i].style.width = '0%';
+    }
+  }
 
   setTimeout(() => {
     const el = document.getElementById('full-name') || document.getElementById('email-input');
@@ -334,7 +417,31 @@ function autoAdvance(field, value) {
   data[field] = value;
   renderStep(); // show selected state
   setTimeout(() => {
-    transition(() => { currentStep++; });
+    if (currentStep === 0) {
+      // First question - slide h1 and question together, keep progress bar
+      var h1 = document.querySelector('.landing-header h1');
+      var c = document.getElementById('question-container');
+      var main = document.querySelector('.main-area');
+      if (h1) { h1.style.transition = 'all 150ms ease-out'; h1.style.opacity = '0'; h1.style.transform = 'translateX(-60px)'; }
+      main.style.transition = 'all 150ms ease-out';
+      main.style.opacity = '0';
+      main.style.transform = 'translateX(-60px)';
+      setTimeout(() => {
+        currentStep++;
+        renderStep();
+        main.style.transition = 'none';
+        main.style.transform = 'translateX(60px)';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            main.style.transition = 'all 150ms ease-out';
+            main.style.opacity = '1';
+            main.style.transform = 'translateX(0)';
+          });
+        });
+      }, 150);
+    } else {
+      transition(() => { currentStep++; });
+    }
   }, 200);
 }
 
@@ -349,6 +456,12 @@ function validate() {
       }
       return true;
     case 10:
+      if (!phoneVerified) {
+        ea.innerHTML='<p class="error-msg">Please verify your phone number first</p>'; return false;
+      }
+      if (!document.getElementById('consent-check') || !document.getElementById('consent-check').checked) {
+        ea.innerHTML='<p class="error-msg">Please agree to the terms to continue</p>'; return false;
+      }
       var em = (data.email||'').trim();
       if (!em || em.indexOf('@') === -1 || em.indexOf('.') === -1) {
         ea.innerHTML='<p class="error-msg">Please enter a valid email address</p>'; return false;
@@ -362,19 +475,24 @@ function validate() {
   return true;
 }
 
-function transition(callback) {
-  const c = document.getElementById('question-container');
-  c.classList.remove('visible');
-  c.classList.add('hidden');
+function transition(callback, reverse) {
+  var c = document.getElementById('question-container');
+  c.style.transition = 'all 100ms ease-out';
+  c.style.opacity = '0';
+  c.style.transform = reverse ? 'translateX(40px)' : 'translateX(-40px)';
   setTimeout(() => {
     callback();
-    updateProgress();
     renderStep();
+    c.style.transition = 'none';
+    c.style.transform = reverse ? 'translateX(-40px)' : 'translateX(40px)';
     requestAnimationFrame(() => {
-      c.classList.remove('hidden');
-      c.classList.add('visible');
+      requestAnimationFrame(() => {
+        c.style.transition = 'all 100ms ease-out';
+        c.style.opacity = '1';
+        c.style.transform = 'translateX(0)';
+      });
     });
-  }, 200);
+  }, 100);
 }
 
 function goNext() {
@@ -383,15 +501,99 @@ function goNext() {
 }
 
 function goBack() {
-  transition(() => { currentStep--; });
+  transition(() => { currentStep--; }, true);
 }
 
 function isQualified(d) {
+  // Hard disqualifier - instant fail
+  if (d.monthlySales === "$0 \u2013 $20,000") return false;
+  // Strike system for everything else
   var strikes = 0;
   if (d.timeInBusiness === "Less than 6 months") strikes++;
-  if (d.monthlySales === "$0 \u2013 $20,000") strikes++;
   if (d.creditScore === "Poor (Below 500)") strikes++;
   return strikes <= 1;
+}
+
+var phoneVerified = false;
+
+async function sendOTP() {
+  var ea = document.getElementById('error-area');
+  ea.innerHTML = '';
+  var ph = (data.phone||'').replace(/\D/g,'');
+  if (ph.length !== 10) {
+    ea.innerHTML = '<p class="error-msg">Please enter a valid 10-digit phone number</p>';
+    return;
+  }
+  var em = (data.email||'').trim();
+  if (!em || em.indexOf('@') === -1 || em.indexOf('.') === -1) {
+    ea.innerHTML = '<p class="error-msg">Please enter a valid email address</p>';
+    return;
+  }
+  if (!document.getElementById('consent-check').checked) {
+    ea.innerHTML = '<p class="error-msg">Please agree to the terms to continue</p>';
+    return;
+  }
+
+  var btn = document.getElementById('submit-btn');
+  btn.textContent = 'Sending code...';
+  btn.disabled = true;
+
+  try {
+    var resp = await fetch('/api/send-code', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({phone: data.phone})
+    });
+    var result = await resp.json();
+    if (result.success) {
+      document.getElementById('otp-section').style.display = 'block';
+      document.getElementById('otp-input').focus();
+      btn.textContent = 'Waiting for verification...';
+      document.getElementById('otp-status').textContent = 'Code sent to ' + data.phone;
+      document.getElementById('otp-status').style.color = '#C5A35D';
+    } else {
+      ea.innerHTML = '<p class="error-msg">' + (result.error || 'Failed to send code') + '</p>';
+      btn.textContent = 'Verify Phone & Get My Quote';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    ea.innerHTML = '<p class="error-msg">Failed to send code. Please try again.</p>';
+    btn.textContent = 'Verify Phone & Get My Quote';
+    btn.disabled = false;
+  }
+}
+
+async function verifyOTP() {
+  var code = document.getElementById('otp-input').value.trim();
+  if (code.length !== 6) return;
+
+  var status = document.getElementById('otp-status');
+  status.textContent = 'Verifying...';
+  status.style.color = '#6E7180';
+
+  try {
+    var resp = await fetch('/api/verify-code', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({phone: data.phone, code: code})
+    });
+    var result = await resp.json();
+    if (result.success) {
+      phoneVerified = true;
+      status.textContent = '✓ Phone verified!';
+      status.style.color = '#22c55e';
+      // Auto-submit after verification
+      setTimeout(function() { submitForm(); }, 500);
+    } else {
+      status.textContent = 'Invalid code. Please try again.';
+      status.style.color = '#dc2626';
+      document.getElementById('otp-input').value = '';
+      document.getElementById('otp-input').focus();
+    }
+  } catch(e) {
+    status.textContent = 'Verification failed. Please try again.';
+    status.style.color = '#dc2626';
+  }
 }
 
 function submitForm() {
@@ -416,19 +618,15 @@ function submitForm() {
     sheet: qualified ? 'Qualified' : 'Not Qualified'
   };
 
-  // Send to Google Sheets (fire and forget - don't block redirect)
+  // Use sendBeacon for guaranteed delivery (survives page redirect)
   var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyoJ2xxc7MG5vIdb51pZIgvrNdDBhbt2rdnwsOvy8nvH51hJvQB1FdwJ8rXq1N17CLp/exec';
-  // Send to Google Sheets
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', GOOGLE_SCRIPT_URL, true);
-  xhr.setRequestHeader('Content-Type', 'text/plain');
-  xhr.send(JSON.stringify(payload));
+  fetch(GOOGLE_SCRIPT_URL, {method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});
 
-  // Send Slack notification
+  // Slack notification
   var emoji = qualified ? '🟢' : '🔴';
   var status = qualified ? 'Qualified Lead' : 'Unqualified Lead';
   var slackMsg = {
-    text: emoji + ' *New ' + status + '*\n' +
+    text: emoji + ' <!channel> *New ' + status + '*\n' +
       '>*Name:* ' + (data.fullName || 'N/A') + '\n' +
       '>*Phone:* ' + (data.phone || 'N/A') + '\n' +
       '>*Email:* ' + (data.email || 'N/A') + '\n' +
@@ -442,10 +640,19 @@ function submitForm() {
       '>*Loan Purpose:* ' + (data.loanPurpose || 'N/A') + '\n' +
       '>*Timeline:* ' + (data.fundingTimeline || 'N/A')
   };
-  var xhr2 = new XMLHttpRequest();
-  xhr2.open('POST', 'https://hooks.slack.com/services/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', true);
-  xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr2.send('payload=' + encodeURIComponent(JSON.stringify(slackMsg)));
+  fetch('/api/notify', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:slackMsg.text}),keepalive:true}).catch(function(){});
+
+  // Make.com webhook (qualified leads only)
+  if (qualified) {
+    var webhookData = {
+      fullName: String(data.fullName || ''),
+      email: String(data.email || ''),
+      phone: String(data.phone || ''),
+      loanRequest: String(data.amount || ''),
+      monthlyRevenue: String(data.monthlySales || '')
+    };
+    fetch('https://hook.us2.make.com/otbcpkurg5q1syxapsvbt5y8r1nk9d28', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(webhookData),keepalive:true}).catch(function(){});
+  }
 
   var params = new URLSearchParams({
     name: data.fullName || '',
@@ -456,31 +663,14 @@ function submitForm() {
     sales: data.monthlySales || ''
   }).toString();
 
+  // sendBeacon guarantees delivery - redirect immediately
   setTimeout(function() {
-    // Send to Make.com webhook (qualified leads only)
     if (qualified) {
-      var webhookData = {
-        fullName: String(data.fullName || ''),
-        email: String(data.email || ''),
-        phone: String(data.phone || ''),
-        loanRequest: String(data.amount || ''),
-        monthlyRevenue: String(data.monthlySales || '')
-      };
-      var xhr3 = new XMLHttpRequest();
-      xhr3.open('POST', 'https://hook.us2.make.com/otbcpkurg5q1syxapsvbt5y8r1nk9d28', true);
-      xhr3.setRequestHeader('Content-Type', 'application/json');
-      xhr3.send(JSON.stringify(webhookData));
+      window.location.href = '/qualified?' + params;
+    } else {
+      window.location.href = '/thankyou';
     }
-
-    // Wait for webhook to send before redirecting
-    setTimeout(function() {
-      if (qualified) {
-        window.location.href = '/qualified?' + params;
-      } else {
-        window.location.href = '/thankyou';
-      }
-    }, 1500);
-  }, 200);
+  }, 500);
 }
 
 // === READ URL PARAMS ===
@@ -507,8 +697,19 @@ function getAmountRange(amount) {
 })();
 
 // Init
-updateProgress();
 renderStep();
+</script>
+
+<script>
+// Notify when someone visits the apply page (once per session)
+if (!sessionStorage.getItem('visitor_notified')) {
+  sessionStorage.setItem('visitor_notified', '1');
+  fetch('/api/notify', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({text: '👀 <!channel> *New Visitor* on the Apply page\n>*Time:* ' + new Date().toLocaleString() + '\n>*Source:* ' + (document.referrer || 'Direct')})
+  }).catch(function(){});
+}
 </script>
 </body>
 </html>
