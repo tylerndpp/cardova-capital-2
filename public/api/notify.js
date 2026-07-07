@@ -5,7 +5,7 @@ module.exports = async function handler(req, res) {
   if (!text) return res.status(400).json({ error: 'Text required' });
 
   try {
-    await fetch('https://hooks.slack.com/services/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', {
+    await fetch('https://hooks.slack.com/services/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', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text }),
