@@ -422,12 +422,6 @@ function autoAdvance(field, value) {
   data[field] = value;
   renderStep(); // show selected state
 
-  // Instant DQ if they have 3+ negative balances
-  if (field === 'negativeBalances' && value === 'Yes') {
-    setTimeout(() => { window.location.href = '/thankyou'; }, 300);
-    return;
-  }
-
   setTimeout(() => {
     if (currentStep === 0) {
       // First question - slide h1 and question together, keep progress bar
@@ -517,8 +511,9 @@ function goBack() {
 }
 
 function isQualified(d) {
-  // Hard disqualifier - instant fail
+  // Hard disqualifiers - instant fail
   if (d.monthlySales === "$0 \u2013 $20,000") return false;
+  if (d.negativeBalances === "Yes") return false;
   // Strike system for everything else
   var strikes = 0;
   if (d.timeInBusiness === "Less than 6 months") strikes++;
