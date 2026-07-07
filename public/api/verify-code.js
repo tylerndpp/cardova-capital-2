@@ -7,7 +7,7 @@ module.exports = async function handler(req, res) {
   const digits = phone.replace(/\D/g, '');
   if (digits.length !== 10) return res.status(400).json({ error: 'Invalid phone' });
 
-  const auth = Buffer.from('AC5db7dab650bc03e945481a2f05046d8a:19331a8824c4ef0248ab2c2998ab27bf').toString('base64');
+  const auth = Buffer.from('AC5db7dab650bc03e945481a2f05046d8a:ffc84725f42c61870435cc7bc579a2b9').toString('base64');
 
   try {
     const resp = await fetch(
