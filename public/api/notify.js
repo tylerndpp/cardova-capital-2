@@ -5,7 +5,7 @@ module.exports = async function handler(req, res) {
   if (!text) return res.status(400).json({ error: 'Text required' });
 
   try {
-    const slackRes = await fetch(process.env.SLACK_WEBHOOK_URL, {
+    const slackRes = await fetch(process.env.slack_webhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text }),
