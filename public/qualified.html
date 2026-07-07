@@ -13,16 +13,18 @@
   .topbar-inner{display:flex;align-items:center;justify-content:center;padding:0 20px;height:56px}
   .topbar-logo{font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:1px;text-decoration:none;line-height:1.05;text-align:center}
   .topbar-logo span{display:block;font-weight:400;letter-spacing:3px;font-size:9px;color:rgba(255,255,255,0.5)}
-  .main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 16px}
+  .main{flex:1;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
   @media(min-width:640px){.main{padding:48px 32px}}
   .card{width:100%;max-width:520px;text-align:center}
   .check-circle{width:56px;height:56px;border-radius:50%;background:#C5A35D;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
   .headline{font-size:24px;font-weight:800;color:#1E1E24;margin-bottom:8px;line-height:1.2}
   @media(min-width:640px){.headline{font-size:28px}}
-  .sub{font-size:14px;color:#6E7180;margin-bottom:28px;line-height:1.6}
-  .alert-box{background:#0A0A0A;border:1px solid #1a1a1a;border-radius:14px;padding:20px;margin-bottom:24px;text-align:left}
-  .alert-title{font-size:15px;font-weight:700;color:#C5A35D;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-  .alert-text{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6}
+  .sub{font-size:16px;font-weight:800;color:#1E1E24;margin-bottom:32px;line-height:1.4}
+  .sub .gold{color:#C5A35D;font-weight:800}
+  .section-label{font-size:24px;font-weight:800;color:#1E1E24;margin-bottom:8px;line-height:1.2;text-align:center}
+  @media(min-width:640px){.section-label{font-size:28px}}
+  .section-sub{font-size:14px;color:#6E7180;margin-bottom:20px;line-height:1.6;text-align:center}
+  .divider{width:100%;height:1px;background:#EDEFF7;margin:36px 0}
   .cta-main{display:block;padding:14px;background:#C5A35D;color:#0A0A0A;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;text-align:center;font-family:'Manrope',sans-serif;margin-bottom:8px}
   .cta-hint{font-size:11px;color:#9DA2B3;margin-bottom:28px}
   .steps{display:flex;flex-direction:column;gap:14px;margin-bottom:28px;text-align:left}
@@ -68,24 +70,20 @@ fbq('track', 'PageView');
     </div>
 
     <h1 class="headline">Congratulations, You're Qualified!</h1>
-    <p class="sub">Great news — based on your information, you're pre-approved for business funding. Complete one final step to receive your quote.</p>
-
-    <div class="alert-box">
-      <div class="alert-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        One Final Step
-      </div>
-      <p class="alert-text">Complete your full application to lock in your quote. Upload your last 3 months of bank statements so our lenders can finalize your offer.</p>
-    </div>
-
-    <a href="#" id="complete-app-btn" class="cta-main">Complete Your Application</a>
-    <p class="cta-hint">Takes about 5 minutes. Your info is already filled in.</p>
+    <p class="sub">You're about to receive a call within the next <span class="gold">5 minutes!</span></p>
 
     <div class="steps">
       <div class="step-item"><div class="step-num step-done">&#10003;</div><div class="step-content"><h3 style="color:#C5A35D;">Pre-Qualification Complete</h3><p>Your initial application has been approved.</p></div></div>
-      <div class="step-item"><div class="step-num">2</div><div class="step-content"><h3>Complete Full Application</h3><p>Upload bank statements and finalize details.</p></div></div>
-      <div class="step-item"><div class="step-num">3</div><div class="step-content"><h3>Receive Your Quote</h3><p>Get your funding offer within 24 hours.</p></div></div>
+      <div class="step-item"><div class="step-num step-done">&#10003;</div><div class="step-content"><h3 style="color:#C5A35D;">Call Incoming</h3><p>A funding specialist will call you within 5 minutes.</p></div></div>
     </div>
+
+    <div class="divider"></div>
+
+    <h2 class="section-label">Complete the Full Application to Get Ahead</h2>
+    <p class="section-sub">While you wait for your call, get a head start by uploading your bank statements. This speeds up your funding.</p>
+
+    <a href="#" id="complete-app-btn" class="cta-main">Complete Your Application</a>
+    <p class="cta-hint">Takes about 5 minutes. Your info is already filled in.</p>
 
     <div class="trust-row">
       <div class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Secure & encrypted</div>
@@ -93,7 +91,7 @@ fbq('track', 'PageView');
       <div class="trust-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>No obligation</div>
     </div>
 
-    
+
   </div>
 </div>
 
