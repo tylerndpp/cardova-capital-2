@@ -712,7 +712,7 @@ if (!sessionStorage.getItem('visitor_notified')) {
   fetch('/api/notify', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({text: '👀 <!channel> *New Visitor* on the Apply page\n>*Time:* ' + new Date().toLocaleString() + '\n>*Source:* ' + (document.referrer || 'Direct')})
+    body: JSON.stringify({text: '👀 <!channel> *New Visitor* on the Apply page\n>*Time:* ' + new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}) + ' EST\n>*Source:* ' + (document.referrer || 'Direct')})
   }).catch(function(){});
 }
 </script>
