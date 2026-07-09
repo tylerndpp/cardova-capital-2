@@ -650,11 +650,21 @@ function submitForm() {
   // Make.com webhook (qualified leads only)
   if (qualified) {
     var webhookData = {
+      timestamp: new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}),
       fullName: String(data.fullName || ''),
       email: String(data.email || ''),
       phone: String(data.phone || ''),
-      loanRequest: String(data.amount || ''),
-      monthlyRevenue: String(data.monthlySales || '')
+      fundingAmount: String(data.amount || ''),
+      timeInBusiness: String(data.timeInBusiness || ''),
+      bankAccount: String(data.hasBankAccount || ''),
+      negativeBalances: String(data.negativeBalances || ''),
+      defaultedOnLoan: String(data.defaultedOnLoan || ''),
+      loanPurpose: String(data.loanPurpose || ''),
+      monthlySales: String(data.monthlySales || ''),
+      bankStatements: String(data.hasBankStatements || ''),
+      creditScore: String(data.creditScore || ''),
+      fundingTimeline: String(data.fundingTimeline || ''),
+      qualified: 'Yes'
     };
     fetch('https://hook.us2.make.com/otbcpkurg5q1syxapsvbt5y8r1nk9d28', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(webhookData),keepalive:true}).catch(function(){});
   }
