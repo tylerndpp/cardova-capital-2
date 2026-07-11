@@ -34,7 +34,7 @@
   @media(min-width:640px){.progress-section{padding:18px 24px}.progress-dot{width:32px;height:32px;font-size:12px}.progress-step-label{font-size:10px}}
 
   /* === MAIN CONTENT === */
-  .main-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px 0}
+  .main-area{flex:1;display:flex;flex-direction:column;align-items:center;padding:20px 16px 0}
   @media(min-width:640px){.main-area{padding:40px 32px 0;align-items:center}}
   .question-container{width:100%;max-width:520px;transition:all 250ms ease-out}
   
@@ -220,11 +220,8 @@ fbq('track', 'PageView');
   </div>
 </div>
 
-<!-- PROGRESS BAR + STEP COUNTER -->
-<div style="background:#fff;padding:10px 20px 14px;border-bottom:1px solid #EDEFF7;">
-  <div id="step-counter-row" style="display:none;max-width:400px;margin:0 auto 8px;text-align:right;">
-    <span id="step-counter" style="font-size:11px;font-weight:600;color:#9DA2B3;">Step 1 of 11</span>
-  </div>
+<!-- PROGRESS BAR (always same position) -->
+<div style="background:#fff;padding:14px 20px;border-bottom:1px solid #EDEFF7;">
   <div class="landing-steps">
     <div class="landing-step">
       <div class="landing-step-num active">1</div>
@@ -604,22 +601,14 @@ function renderStep() {
   var landingH1 = document.querySelector('.landing-header h1');
   var landingHeader = document.getElementById('landing-header');
   var landingExtras = document.getElementById('landing-extras');
-  var stepCounterRow = document.getElementById('step-counter-row');
   if (currentStep === 0) {
     if (landingH1) { landingH1.style.display = 'block'; landingH1.style.opacity = '1'; landingH1.style.transform = 'translateX(0)'; }
     if (landingHeader) landingHeader.style.display = 'block';
     if (landingExtras) landingExtras.style.display = 'block';
-    if (stepCounterRow) stepCounterRow.style.display = 'none';
   } else {
     if (landingH1) landingH1.style.display = 'none';
     if (landingHeader) landingHeader.style.display = 'none';
     if (landingExtras) landingExtras.style.display = 'none';
-    if (stepCounterRow) stepCounterRow.style.display = 'block';
-    // Update step counter
-    var totalVisible = 11;
-    var stepNum = currentStep;
-    var counter = document.getElementById('step-counter');
-    if (counter) counter.textContent = 'Step ' + stepNum + ' of ' + totalVisible;
   }
 
   // Update the step indicators
