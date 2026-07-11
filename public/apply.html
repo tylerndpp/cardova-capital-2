@@ -138,6 +138,19 @@
   .apply-faq-a{max-height:0;overflow:hidden;transition:max-height 200ms ease}
   .apply-faq-item.open .apply-faq-a{max-height:200px}
   .apply-faq-a p{font-size:14px;color:#6E7180;line-height:1.7;padding-bottom:16px}
+
+  /* How It Works */
+  .how-section{padding:40px 0;max-width:520px;margin:0 auto}
+  .how-title{font-size:22px;font-weight:800;color:#1E1E24;text-align:center;margin-bottom:28px}
+  @media(min-width:640px){.how-title{font-size:26px}}
+  .how-steps{position:relative;padding-left:32px}
+  .how-steps::before{content:'';position:absolute;left:15px;top:24px;bottom:24px;width:2px;background:linear-gradient(180deg,#C5A35D,#E8E8E8)}
+  .how-step{position:relative;padding-bottom:28px}
+  .how-step:last-child{padding-bottom:0}
+  .how-step-dot{position:absolute;left:-32px;top:2px;width:30px;height:30px;border-radius:50%;background:#0A0A0A;border:3px solid #C5A35D;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#C5A35D;z-index:2}
+  .how-step h3{font-size:16px;font-weight:800;color:#1E1E24;margin-bottom:4px}
+  .how-step p{font-size:13px;color:#6E7180;line-height:1.6}
+  .how-step-time{display:inline-block;font-size:11px;font-weight:700;color:#C5A35D;background:rgba(197,163,93,0.1);padding:3px 10px;border-radius:20px;margin-top:6px}
 </style>
 <!-- Facebook Pixel -->
 <script>
@@ -172,8 +185,16 @@ fbq('track', 'PageView');
 
 <!-- LANDING HEADER (step 0 only) -->
 <div id="landing-header" class="landing-header">
+  <div style="display:flex;justify-content:center;gap:3px;margin-bottom:6px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#C5A35D"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#C5A35D"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#C5A35D"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#C5A35D"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#C5A35D"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  </div>
+  <p style="font-size:12px;color:#9DA2B3;font-weight:600;margin-bottom:12px;">Trusted by 586+ business owners</p>
   <h1>Get a Direct Quote for Business Funding <span style="text-decoration:underline;text-decoration-color:#C5A35D;text-underline-offset:4px;text-decoration-thickness:3px;">in Minutes</span></h1>
-  
+
 </div>
 
 <!-- PROGRESS BAR (always same position) -->
@@ -248,6 +269,37 @@ fbq('track', 'PageView');
       <div class="why-card-item">
         <div class="why-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
         <div><h3>Best Rates Possible</h3><p>We match you with the lender who can offer you the most competitive terms and rates.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="how-section">
+    <div class="how-title">How It Works</div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-dot">1</div>
+        <h3>Tell Us What You Need</h3>
+        <p>Answer a few quick questions about your business and funding needs. No paperwork, no commitments.</p>
+        <span class="how-step-time">2 minutes</span>
+      </div>
+      <div class="how-step">
+        <div class="how-step-dot">2</div>
+        <h3>Get Matched to a Specialist</h3>
+        <p>A dedicated funding advisor reviews your profile and calls you within 5 minutes to discuss your options.</p>
+        <span class="how-step-time">5 minutes</span>
+      </div>
+      <div class="how-step">
+        <div class="how-step-dot">3</div>
+        <h3>Receive Your Personalized Offer</h3>
+        <p>Get a custom quote with the best rates and terms from our network of lenders, tailored to your business.</p>
+        <span class="how-step-time">Same day</span>
+      </div>
+      <div class="how-step">
+        <div class="how-step-dot">4</div>
+        <h3>Get Funded</h3>
+        <p>Once you accept your offer, funds are deposited directly into your business account.</p>
+        <span class="how-step-time">24-48 hours</span>
       </div>
     </div>
   </div>
