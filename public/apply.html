@@ -283,8 +283,8 @@ fbq('track', 'PageView');
       <div class="how-title">How It Works</div>
     </div>
     <div class="how-timeline" id="how-timeline">
-      <!-- SVG curved trail - runs through center -->
-      <svg class="how-trail-svg" viewBox="0 0 400 520" preserveAspectRatio="none" fill="none">
+      <!-- SVG curved trail - drawn dynamically through dot centers -->
+      <svg class="how-trail-svg" id="how-trail-svg" fill="none">
         <defs>
           <linearGradient id="trailGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#C5A35D" stop-opacity="0.5"/>
@@ -296,10 +296,8 @@ fbq('track', 'PageView');
             <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <!-- Wide soft glow -->
-        <path d="M230,30 C330,60 340,110 270,155 C180,210 160,240 130,300 C110,350 170,390 230,420 C290,445 310,480 270,510" stroke="rgba(197,163,93,0.06)" stroke-width="32" stroke-linecap="round" fill="none"/>
-        <!-- Main trail -->
-        <path d="M230,30 C330,60 340,110 270,155 C180,210 160,240 130,300 C110,350 170,390 230,420 C290,445 310,480 270,510" stroke="url(#trailGrad)" stroke-width="2.5" stroke-linecap="round" fill="none" filter="url(#trailGlow)" stroke-dasharray="8,6"/>
+        <path id="trail-glow" stroke="rgba(197,163,93,0.06)" stroke-width="32" stroke-linecap="round" fill="none"/>
+        <path id="trail-main" stroke="url(#trailGrad)" stroke-width="2.5" stroke-linecap="round" fill="none" filter="url(#trailGlow)" stroke-dasharray="8,6"/>
       </svg>
 
       <!-- Step 1 - left -->
@@ -971,6 +969,48 @@ if (!sessionStorage.getItem('visitor_notified')) {
     body: JSON.stringify({text: '👀 <!channel> *New Visitor* on the Apply page\n>*Time:* ' + new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}) + ' EST\n>*Source:* ' + (document.referrer || 'Direct')})
   }).catch(function(){});
 }
+
+// Draw curved trail through dot centers
+function drawTrail() {
+  var timeline = document.getElementById('how-timeline');
+  var svg = document.getElementById('how-trail-svg');
+  if (!timeline || !svg) return;
+
+  var dots = timeline.querySelectorAll('.how-tl-dot');
+  if (dots.length < 2) return;
+
+  var rect = timeline.getBoundingClientRect();
+  var points = [];
+  for (var i = 0; i < dots.length; i++) {
+    var dr = dots[i].getBoundingClientRect();
+    points.push({
+      x: dr.left - rect.left + dr.width / 2,
+      y: dr.top - rect.top + dr.height / 2
+    });
+  }
+
+  // Build smooth cubic bezier path through all points
+  var d = 'M' + points[0].x + ',' + points[0].y;
+  for (var i = 0; i < points.length - 1; i++) {
+    var curr = points[i];
+    var next = points[i + 1];
+    var cpx1 = curr.x + (next.x - curr.x) * 0.5;
+    var cpy1 = curr.y;
+    var cpx2 = next.x - (next.x - curr.x) * 0.5;
+    var cpy2 = next.y;
+    d += ' C' + cpx1 + ',' + cpy1 + ' ' + cpx2 + ',' + cpy2 + ' ' + next.x + ',' + next.y;
+  }
+
+  svg.setAttribute('width', rect.width);
+  svg.setAttribute('height', rect.height);
+  svg.setAttribute('viewBox', '0 0 ' + rect.width + ' ' + rect.height);
+  document.getElementById('trail-glow').setAttribute('d', d);
+  document.getElementById('trail-main').setAttribute('d', d);
+}
+
+// Draw on load and resize
+window.addEventListener('load', function() { setTimeout(drawTrail, 100); });
+window.addEventListener('resize', drawTrail);
 </script>
 </body>
 </html>
