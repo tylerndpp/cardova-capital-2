@@ -141,39 +141,43 @@
 
   /* How It Works */
   .how-section{padding:48px 0 32px;max-width:560px;margin:0 auto}
-  .how-header{text-align:center;margin-bottom:36px}
+  .how-header{text-align:center;margin-bottom:40px}
   .how-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#C5A35D;font-weight:600;margin-bottom:8px}
   .how-title{font-size:24px;font-weight:800;color:#1E1E24;margin-bottom:0}
   @media(min-width:640px){.how-title{font-size:28px}}
 
-  /* Process visual */
-  .how-process{background:#0A0A0A;border-radius:20px;padding:36px 24px 32px;position:relative;overflow:hidden}
-  .how-process::before{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(197,163,93,0.08) 0%,transparent 70%);pointer-events:none}
-  .how-process::after{content:'';position:absolute;bottom:0;left:0;width:150px;height:150px;background:radial-gradient(circle,rgba(197,163,93,0.05) 0%,transparent 70%);pointer-events:none}
+  /* Timeline */
+  .how-timeline{position:relative;padding:0 16px}
 
-  /* Step row */
-  .how-step-row{display:flex;align-items:flex-start;gap:16px;position:relative;padding-bottom:24px;z-index:2}
-  .how-step-row:last-child{padding-bottom:0}
+  /* Center line */
+  .how-timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#C5A35D,rgba(197,163,93,0.3),rgba(197,163,93,0.08));transform:translateX(-50%)}
 
-  /* Left column - number + line */
-  .how-step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:48px}
-  .how-step-num{width:48px;height:48px;border-radius:14px;background:rgba(197,163,93,0.1);border:1px solid rgba(197,163,93,0.25);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#C5A35D;font-family:'Playfair Display',Georgia,serif}
-  .how-step-line{flex:1;width:2px;background:linear-gradient(180deg,rgba(197,163,93,0.4),rgba(197,163,93,0.05));margin:8px 0;min-height:20px;border-radius:2px}
-  .how-step-row:last-child .how-step-line{display:none}
+  /* Step */
+  .how-tl-step{position:relative;display:flex;align-items:flex-start;padding-bottom:40px}
+  .how-tl-step:last-child{padding-bottom:0}
 
-  /* Right column - content */
-  .how-step-right{flex:1;padding-top:6px}
-  .how-step-right h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
-  .how-step-right p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5;margin-bottom:6px}
-  .how-step-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#C5A35D;background:rgba(197,163,93,0.08);border:1px solid rgba(197,163,93,0.15);padding:4px 12px;border-radius:20px}
-  .how-step-tag svg{flex-shrink:0}
+  /* Alternating sides */
+  .how-tl-step.left{justify-content:flex-start;padding-right:calc(50% + 28px)}
+  .how-tl-step.right{justify-content:flex-end;padding-left:calc(50% + 28px)}
+  .how-tl-step.left .how-tl-card{text-align:right}
+  .how-tl-step.right .how-tl-card{text-align:left}
 
-  /* Glow effect on first step */
-  .how-step-num.active{box-shadow:0 0 20px rgba(197,163,93,0.25);background:rgba(197,163,93,0.15);border-color:#C5A35D}
+  /* Center dot */
+  .how-tl-dot{position:absolute;left:50%;top:8px;transform:translateX(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid #C5A35D;display:flex;align-items:center;justify-content:center;z-index:3;font-size:15px;font-weight:800;color:#C5A35D;font-family:'Playfair Display',Georgia,serif;box-shadow:0 0 0 6px rgba(197,163,93,0.08)}
 
-  /* Bottom CTA inside process */
-  .how-bottom{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
-  .how-bottom p{font-size:12px;color:rgba(255,255,255,0.3)}
+  /* Pulse on step 1 */
+  .how-tl-dot.pulse{animation:dotPulse 2s ease-in-out infinite;border-color:#C5A35D;background:rgba(197,163,93,0.08)}
+  @keyframes dotPulse{0%,100%{box-shadow:0 0 0 6px rgba(197,163,93,0.08),0 0 0 12px rgba(197,163,93,0)}50%{box-shadow:0 0 0 8px rgba(197,163,93,0.15),0 0 0 20px rgba(197,163,93,0.06)}}
+
+  /* Card */
+  .how-tl-card{flex:1}
+  .how-tl-card h3{font-size:15px;font-weight:800;color:#1E1E24;margin-bottom:3px}
+  .how-tl-card p{font-size:12px;color:#6E7180;line-height:1.5;margin-bottom:6px}
+  .how-tl-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#C5A35D;background:rgba(197,163,93,0.08);border:1px solid rgba(197,163,93,0.15);padding:3px 10px;border-radius:20px}
+
+  /* Connector arms */
+  .how-tl-step.left::after{content:'';position:absolute;top:26px;right:calc(50% - 22px);width:28px;height:2px;background:rgba(197,163,93,0.3)}
+  .how-tl-step.right::after{content:'';position:absolute;top:26px;left:calc(50% - 22px);width:28px;height:2px;background:rgba(197,163,93,0.3)}
 </style>
 <!-- Facebook Pixel -->
 <script>
@@ -279,53 +283,38 @@ fbq('track', 'PageView');
       <div class="how-eyebrow">The Process</div>
       <div class="how-title">How It Works</div>
     </div>
-    <div class="how-process">
-      <div class="how-step-row">
-        <div class="how-step-left">
-          <div class="how-step-num active">1</div>
-          <div class="how-step-line"></div>
-        </div>
-        <div class="how-step-right">
+    <div class="how-timeline">
+      <div class="how-tl-step left">
+        <div class="how-tl-dot pulse">1</div>
+        <div class="how-tl-card">
           <h3>Fill Out a Quick Application</h3>
           <p>Answer a few questions about your business. No paperwork, no commitments.</p>
-          <span class="how-step-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2 minutes</span>
+          <span class="how-tl-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2 minutes</span>
         </div>
       </div>
-      <div class="how-step-row">
-        <div class="how-step-left">
-          <div class="how-step-num">2</div>
-          <div class="how-step-line"></div>
-        </div>
-        <div class="how-step-right">
+      <div class="how-tl-step right">
+        <div class="how-tl-dot">2</div>
+        <div class="how-tl-card">
           <h3>Receive a Call From Our Team</h3>
-          <p>A dedicated funding specialist reviews your profile and calls you directly.</p>
-          <span class="how-step-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Within 5 minutes</span>
+          <p>A dedicated specialist reviews your profile and calls you directly.</p>
+          <span class="how-tl-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Within 5 minutes</span>
         </div>
       </div>
-      <div class="how-step-row">
-        <div class="how-step-left">
-          <div class="how-step-num">3</div>
-          <div class="how-step-line"></div>
-        </div>
-        <div class="how-step-right">
+      <div class="how-tl-step left">
+        <div class="how-tl-dot">3</div>
+        <div class="how-tl-card">
           <h3>Get Your Personalized Offer</h3>
-          <p>Receive a custom quote with the best rates and terms from our lender network.</p>
-          <span class="how-step-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Same day</span>
+          <p>Custom quote with the best rates from our lender network.</p>
+          <span class="how-tl-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Same day</span>
         </div>
       </div>
-      <div class="how-step-row">
-        <div class="how-step-left">
-          <div class="how-step-num">4</div>
-        </div>
-        <div class="how-step-right">
+      <div class="how-tl-step right">
+        <div class="how-tl-dot">4</div>
+        <div class="how-tl-card">
           <h3>Get Funded</h3>
-          <p>Accept your offer and funds are deposited directly into your business account.</p>
-          <span class="how-step-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>24–48 hours</span>
+          <p>Funds deposited directly into your business account.</p>
+          <span class="how-tl-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>24–48 hours</span>
         </div>
-      </div>
-      <div class="how-bottom">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <p>Your data is encrypted and secure throughout the entire process</p>
       </div>
     </div>
   </div>
