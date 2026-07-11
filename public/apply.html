@@ -103,6 +103,41 @@
   /* === LEGAL === */
   .legal-text{text-align:center;font-size:11px;color:#9DA2B3;margin-top:14px;line-height:1.5}
   .legal-text a{color:#6E7180;text-decoration:underline}
+
+  /* === LANDING EXTRA SECTIONS (step 0 only) === */
+  .landing-extras{background:#fff;padding:0 16px}
+
+  /* Logo scroller */
+  .logo-bar{padding:32px 0;text-align:center;overflow:hidden}
+  .logo-bar-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9DA2B3;font-weight:600;margin-bottom:16px}
+  .logo-track-wrapper{overflow:hidden;position:relative;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+  .logo-track{display:flex;gap:48px;align-items:center;animation:scrollLogos 20s linear infinite;width:max-content}
+  .logo-track img{height:28px;opacity:0.4;filter:grayscale(100%);transition:opacity 200ms}
+  .logo-track span{font-size:14px;font-weight:700;color:#9DA2B3;white-space:nowrap;letter-spacing:1px}
+  @keyframes scrollLogos{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* Why Cardova */
+  .why-cards-section{padding:40px 0;max-width:520px;margin:0 auto}
+  .why-cards-title{font-size:22px;font-weight:800;color:#1E1E24;text-align:center;margin-bottom:20px}
+  @media(min-width:640px){.why-cards-title{font-size:26px}}
+  .why-cards{display:flex;flex-direction:column;gap:12px}
+  .why-card-item{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:#FAFAFA;border:1px solid #EDEFF7;border-radius:14px}
+  .why-card-icon{width:40px;height:40px;border-radius:10px;background:#0A0A0A;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .why-card-item h3{font-size:15px;font-weight:700;color:#1E1E24;margin-bottom:3px}
+  .why-card-item p{font-size:13px;color:#6E7180;line-height:1.5}
+
+  /* FAQ */
+  .apply-faq{padding:40px 0 48px;max-width:520px;margin:0 auto}
+  .apply-faq-title{font-size:22px;font-weight:800;color:#1E1E24;text-align:center;margin-bottom:20px}
+  @media(min-width:640px){.apply-faq-title{font-size:26px}}
+  .apply-faq-item{border-bottom:1px solid #EDEFF7}
+  .apply-faq-q{display:flex;justify-content:space-between;align-items:center;padding:16px 0;cursor:pointer;user-select:none}
+  .apply-faq-q h3{font-size:15px;font-weight:600;color:#1E1E24}
+  .apply-faq-chevron{width:20px;height:20px;color:#9DA2B3;flex-shrink:0;transition:transform 200ms}
+  .apply-faq-item.open .apply-faq-chevron{transform:rotate(180deg)}
+  .apply-faq-a{max-height:0;overflow:hidden;transition:max-height 200ms ease}
+  .apply-faq-item.open .apply-faq-a{max-height:200px}
+  .apply-faq-a p{font-size:14px;color:#6E7180;line-height:1.7;padding-bottom:16px}
 </style>
 <!-- Facebook Pixel -->
 <script>
@@ -164,6 +199,99 @@ fbq('track', 'PageView');
 <!-- MAIN -->
 <div class="main-area">
   <div class="question-container visible" id="question-container"></div>
+</div>
+
+<!-- LANDING EXTRAS (visible on step 0 only) -->
+<div class="landing-extras" id="landing-extras">
+
+  <!-- Scrolling Logo Bar -->
+  <div class="logo-bar">
+    <div class="logo-bar-label">Trusted by businesses across the country</div>
+    <div class="logo-track-wrapper">
+      <div class="logo-track">
+        <span>APEX CONSTRUCTION</span>
+        <span>BRIGHTON LOGISTICS</span>
+        <span>COASTAL ROOFING CO</span>
+        <span>DELTA PLUMBING</span>
+        <span>EASTSIDE AUTO GROUP</span>
+        <span>FRONTIER HVAC</span>
+        <span>GOLDEN STATE ELECTRIC</span>
+        <span>HARBOR FREIGHT SERVICES</span>
+        <span>APEX CONSTRUCTION</span>
+        <span>BRIGHTON LOGISTICS</span>
+        <span>COASTAL ROOFING CO</span>
+        <span>DELTA PLUMBING</span>
+        <span>EASTSIDE AUTO GROUP</span>
+        <span>FRONTIER HVAC</span>
+        <span>GOLDEN STATE ELECTRIC</span>
+        <span>HARBOR FREIGHT SERVICES</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why Choose Cardova -->
+  <div class="why-cards-section">
+    <div class="why-cards-title">Why Businesses Choose Cardova</div>
+    <div class="why-cards">
+      <div class="why-card-item">
+        <div class="why-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div><h3>No Hard Credit Check</h3><p>Check your eligibility without affecting your credit score. Soft pull only.</p></div>
+      </div>
+      <div class="why-card-item">
+        <div class="why-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><h3>Funding in 24-48 Hours</h3><p>Depending on your needs, you may be eligible for same-day or next-day funding.</p></div>
+      </div>
+      <div class="why-card-item">
+        <div class="why-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div><h3>Options for Every Business</h3><p>Regardless of your situation, we have a solution that fits. Even if you've been denied before.</p></div>
+      </div>
+      <div class="why-card-item">
+        <div class="why-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C5A35D" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <div><h3>Best Rates Possible</h3><p>We match you with the lender who can offer you the most competitive terms and rates.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="apply-faq">
+    <div class="apply-faq-title">Frequently Asked Questions</div>
+    <div class="apply-faq-item">
+      <div class="apply-faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h3>Is my data secure?</h3>
+        <svg class="apply-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="apply-faq-a"><p>Yes. All information is encrypted using bank-level 256-bit SSL encryption. We never share your personal data with anyone without your consent.</p></div>
+    </div>
+    <div class="apply-faq-item">
+      <div class="apply-faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h3>Will this impact my credit score?</h3>
+        <svg class="apply-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="apply-faq-a"><p>No. We only perform a soft credit inquiry during the pre-qualification process, which does not affect your credit score in any way.</p></div>
+    </div>
+    <div class="apply-faq-item">
+      <div class="apply-faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h3>What types of businesses can you fund?</h3>
+        <svg class="apply-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="apply-faq-a"><p>We work with businesses across all industries including construction, restaurants, retail, trucking, medical, and more. If your business has been operating for at least 6 months, we likely have an option for you.</p></div>
+    </div>
+    <div class="apply-faq-item">
+      <div class="apply-faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h3>What happens after I submit the application?</h3>
+        <svg class="apply-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="apply-faq-a"><p>A dedicated funding specialist will call you within 5 minutes to discuss your options. From there, you'll receive a personalized quote with rates, terms, and funding amounts.</p></div>
+    </div>
+    <div class="apply-faq-item">
+      <div class="apply-faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h3>How fast can I get funded?</h3>
+        <svg class="apply-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="apply-faq-a"><p>Most businesses receive funding within 24-48 hours of approval. Some same-day options are available depending on your qualifications.</p></div>
+    </div>
+  </div>
+
 </div>
 
 
@@ -368,12 +496,15 @@ function renderStep() {
   // Show/hide headline for step 0
   var landingH1 = document.querySelector('.landing-header h1');
   var landingHeader = document.getElementById('landing-header');
+  var landingExtras = document.getElementById('landing-extras');
   if (currentStep === 0) {
     if (landingH1) { landingH1.style.display = 'block'; landingH1.style.opacity = '1'; landingH1.style.transform = 'translateX(0)'; }
     if (landingHeader) landingHeader.style.display = 'block';
+    if (landingExtras) landingExtras.style.display = 'block';
   } else {
     if (landingH1) landingH1.style.display = 'none';
     if (landingHeader) landingHeader.style.display = 'none';
+    if (landingExtras) landingExtras.style.display = 'none';
   }
 
   // Update the step indicators
