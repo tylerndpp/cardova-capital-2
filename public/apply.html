@@ -34,7 +34,7 @@
   @media(min-width:640px){.progress-section{padding:18px 24px}.progress-dot{width:32px;height:32px;font-size:12px}.progress-step-label{font-size:10px}}
 
   /* === MAIN CONTENT === */
-  .main-area{flex:1;display:flex;flex-direction:column;align-items:center;padding:20px 16px 0}
+  .main-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px 0}
   @media(min-width:640px){.main-area{padding:40px 32px 0;align-items:center}}
   .question-container{width:100%;max-width:520px;transition:all 250ms ease-out}
   
@@ -220,8 +220,21 @@ fbq('track', 'PageView');
   </div>
 </div>
 
-<!-- PROGRESS BAR (always same position) -->
-<div style="background:#fff;padding:14px 20px;border-bottom:1px solid #EDEFF7;">
+<!-- STEP TOPBAR (visible on steps 1+ only) -->
+<div id="step-topbar" style="display:none;background:#fff;border-bottom:1px solid #EDEFF7;padding:0 20px;height:52px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;height:100%;max-width:520px;margin:0 auto;">
+    <a href="/" style="font-family:'Playfair Display',Georgia,serif;font-size:15px;font-weight:700;color:#0A0A0A;letter-spacing:1px;text-decoration:none;line-height:1.05;">CARDOVA<span style="display:block;font-weight:400;letter-spacing:3px;font-size:8px;color:#9DA2B3;">CAPITAL</span></a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span id="step-counter" style="font-size:12px;font-weight:600;color:#6E7180;">Step 1 of 11</span>
+      <div style="width:60px;height:6px;background:#EDEFF7;border-radius:100px;overflow:hidden;">
+        <div id="step-progress-fill" style="height:100%;background:linear-gradient(90deg,#C5A35D,#d4b36c);border-radius:100px;transition:width 400ms ease;width:0%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OLD PROGRESS BAR (step 0 only) -->
+<div id="old-progress" style="background:#fff;padding:14px 20px;border-bottom:1px solid #EDEFF7;">
   <div class="landing-steps">
     <div class="landing-step">
       <div class="landing-step-num active">1</div>
@@ -601,14 +614,27 @@ function renderStep() {
   var landingH1 = document.querySelector('.landing-header h1');
   var landingHeader = document.getElementById('landing-header');
   var landingExtras = document.getElementById('landing-extras');
+  var stepTopbar = document.getElementById('step-topbar');
+  var oldProgress = document.getElementById('old-progress');
   if (currentStep === 0) {
     if (landingH1) { landingH1.style.display = 'block'; landingH1.style.opacity = '1'; landingH1.style.transform = 'translateX(0)'; }
     if (landingHeader) landingHeader.style.display = 'block';
     if (landingExtras) landingExtras.style.display = 'block';
+    if (stepTopbar) stepTopbar.style.display = 'none';
+    if (oldProgress) oldProgress.style.display = 'block';
   } else {
     if (landingH1) landingH1.style.display = 'none';
     if (landingHeader) landingHeader.style.display = 'none';
     if (landingExtras) landingExtras.style.display = 'none';
+    if (stepTopbar) stepTopbar.style.display = 'block';
+    if (oldProgress) oldProgress.style.display = 'none';
+    // Update step counter and progress bar
+    var totalVisible = 11;
+    var stepNum = currentStep;
+    var counter = document.getElementById('step-counter');
+    var fill = document.getElementById('step-progress-fill');
+    if (counter) counter.textContent = 'Step ' + stepNum + ' of ' + totalVisible;
+    if (fill) fill.style.width = ((stepNum / totalVisible) * 100) + '%';
   }
 
   // Update the step indicators
