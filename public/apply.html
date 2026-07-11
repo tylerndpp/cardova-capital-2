@@ -147,37 +147,32 @@
   @media(min-width:640px){.how-title{font-size:28px}}
 
   /* Timeline */
-  .how-timeline{position:relative;padding:0 16px}
+  .how-timeline{position:relative;padding:0 8px;min-height:480px}
 
-  /* Center line */
-  .how-timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#C5A35D,rgba(197,163,93,0.3),rgba(197,163,93,0.08));transform:translateX(-50%)}
+  /* SVG curved path */
+  .how-trail-svg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
 
-  /* Step */
-  .how-tl-step{position:relative;display:flex;align-items:flex-start;padding-bottom:40px}
-  .how-tl-step:last-child{padding-bottom:0}
+  /* Step nodes */
+  .how-tl-node{position:relative;z-index:3;display:flex;align-items:flex-start;gap:14px;padding-bottom:16px}
 
-  /* Alternating sides */
-  .how-tl-step.left{justify-content:flex-start;padding-right:calc(50% + 28px)}
-  .how-tl-step.right{justify-content:flex-end;padding-left:calc(50% + 28px)}
-  .how-tl-step.left .how-tl-card{text-align:right}
-  .how-tl-step.right .how-tl-card{text-align:left}
+  /* Alternating layout */
+  .how-tl-node.pos-1{margin-left:8%;margin-right:auto;max-width:55%}
+  .how-tl-node.pos-2{margin-left:auto;margin-right:8%;max-width:55%}
+  .how-tl-node.pos-3{margin-left:12%;margin-right:auto;max-width:55%}
+  .how-tl-node.pos-4{margin-left:auto;margin-right:12%;max-width:55%}
 
-  /* Center dot */
-  .how-tl-dot{position:absolute;left:50%;top:8px;transform:translateX(-50%);width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid #C5A35D;display:flex;align-items:center;justify-content:center;z-index:3;font-size:15px;font-weight:800;color:#C5A35D;font-family:'Playfair Display',Georgia,serif;box-shadow:0 0 0 6px rgba(197,163,93,0.08)}
+  /* Dot */
+  .how-tl-dot{width:44px;height:44px;border-radius:50%;background:#fff;border:3px solid rgba(197,163,93,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:800;color:#C5A35D;font-family:'Playfair Display',Georgia,serif;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
 
   /* Pulse on step 1 */
-  .how-tl-dot.pulse{animation:dotPulse 2s ease-in-out infinite;border-color:#C5A35D;background:rgba(197,163,93,0.08)}
-  @keyframes dotPulse{0%,100%{box-shadow:0 0 0 6px rgba(197,163,93,0.08),0 0 0 12px rgba(197,163,93,0)}50%{box-shadow:0 0 0 8px rgba(197,163,93,0.15),0 0 0 20px rgba(197,163,93,0.06)}}
+  .how-tl-dot.pulse{border-color:#C5A35D;background:linear-gradient(135deg,rgba(197,163,93,0.12),rgba(197,163,93,0.04));animation:dotPulse 2.5s ease-in-out infinite}
+  @keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(197,163,93,0.2),0 0 0 0 rgba(197,163,93,0.1),0 2px 12px rgba(0,0,0,0.06)}50%{box-shadow:0 0 0 8px rgba(197,163,93,0.12),0 0 0 16px rgba(197,163,93,0.04),0 2px 12px rgba(0,0,0,0.06)}}
 
-  /* Card */
-  .how-tl-card{flex:1}
-  .how-tl-card h3{font-size:15px;font-weight:800;color:#1E1E24;margin-bottom:3px}
+  /* Content */
+  .how-tl-card{padding-top:6px}
+  .how-tl-card h3{font-size:15px;font-weight:800;color:#1E1E24;margin-bottom:2px;line-height:1.3}
   .how-tl-card p{font-size:12px;color:#6E7180;line-height:1.5;margin-bottom:6px}
-  .how-tl-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#C5A35D;background:rgba(197,163,93,0.08);border:1px solid rgba(197,163,93,0.15);padding:3px 10px;border-radius:20px}
-
-  /* Connector arms */
-  .how-tl-step.left::after{content:'';position:absolute;top:26px;right:calc(50% - 22px);width:28px;height:2px;background:rgba(197,163,93,0.3)}
-  .how-tl-step.right::after{content:'';position:absolute;top:26px;left:calc(50% - 22px);width:28px;height:2px;background:rgba(197,163,93,0.3)}
+  .how-tl-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#C5A35D;background:rgba(197,163,93,0.06);border:1px solid rgba(197,163,93,0.12);padding:3px 10px;border-radius:20px}
 </style>
 <!-- Facebook Pixel -->
 <script>
@@ -283,36 +278,67 @@ fbq('track', 'PageView');
       <div class="how-eyebrow">The Process</div>
       <div class="how-title">How It Works</div>
     </div>
-    <div class="how-timeline">
-      <div class="how-tl-step left">
+    <div class="how-timeline" id="how-timeline">
+      <!-- SVG curved trail -->
+      <svg class="how-trail-svg" viewBox="0 0 400 480" preserveAspectRatio="none" fill="none">
+        <defs>
+          <linearGradient id="trailGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C5A35D" stop-opacity="0.6"/>
+            <stop offset="50%" stop-color="#C5A35D" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#C5A35D" stop-opacity="0.05"/>
+          </linearGradient>
+          <filter id="trailGlow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Glow layer -->
+        <path d="M100,30 C100,30 320,60 310,140 C300,220 80,220 90,300 C100,380 320,370 310,450" stroke="rgba(197,163,93,0.08)" stroke-width="20" stroke-linecap="round" fill="none"/>
+        <!-- Main trail -->
+        <path d="M100,30 C100,30 320,60 310,140 C300,220 80,220 90,300 C100,380 320,370 310,450" stroke="url(#trailGrad)" stroke-width="3" stroke-linecap="round" fill="none" filter="url(#trailGlow)"/>
+        <!-- Dot highlights along the path -->
+        <circle cx="100" cy="30" r="4" fill="#C5A35D" opacity="0.5"/>
+        <circle cx="310" cy="140" r="3" fill="#C5A35D" opacity="0.3"/>
+        <circle cx="90" cy="300" r="3" fill="#C5A35D" opacity="0.2"/>
+        <circle cx="310" cy="450" r="3" fill="#C5A35D" opacity="0.1"/>
+      </svg>
+
+      <!-- Step 1 - top left -->
+      <div class="how-tl-node pos-1" style="padding-top:4px;">
         <div class="how-tl-dot pulse">1</div>
         <div class="how-tl-card">
           <h3>Fill Out a Quick Application</h3>
-          <p>Answer a few questions about your business. No paperwork, no commitments.</p>
+          <p>No paperwork, no commitments.</p>
           <span class="how-tl-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2 minutes</span>
         </div>
       </div>
-      <div class="how-tl-step right">
+
+      <!-- Step 2 - right -->
+      <div class="how-tl-node pos-2" style="padding-top:56px;">
         <div class="how-tl-dot">2</div>
         <div class="how-tl-card">
-          <h3>Receive a Call From Our Team</h3>
-          <p>A dedicated specialist reviews your profile and calls you directly.</p>
+          <h3>Receive a Call From Us</h3>
+          <p>A specialist contacts you directly.</p>
           <span class="how-tl-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Within 5 minutes</span>
         </div>
       </div>
-      <div class="how-tl-step left">
+
+      <!-- Step 3 - left -->
+      <div class="how-tl-node pos-3" style="padding-top:56px;">
         <div class="how-tl-dot">3</div>
         <div class="how-tl-card">
           <h3>Get Your Personalized Offer</h3>
-          <p>Custom quote with the best rates from our lender network.</p>
+          <p>Best rates from our lender network.</p>
           <span class="how-tl-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Same day</span>
         </div>
       </div>
-      <div class="how-tl-step right">
+
+      <!-- Step 4 - right -->
+      <div class="how-tl-node pos-4" style="padding-top:56px;">
         <div class="how-tl-dot">4</div>
         <div class="how-tl-card">
           <h3>Get Funded</h3>
-          <p>Funds deposited directly into your business account.</p>
+          <p>Funds deposited into your account.</p>
           <span class="how-tl-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>24–48 hours</span>
         </div>
       </div>
