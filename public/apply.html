@@ -155,11 +155,11 @@
   /* Step nodes */
   .how-tl-node{position:relative;z-index:3;display:flex;align-items:flex-start;gap:14px;padding-bottom:16px}
 
-  /* Alternating layout */
-  .how-tl-node.pos-1{margin-left:8%;margin-right:auto;max-width:55%}
-  .how-tl-node.pos-2{margin-left:auto;margin-right:8%;max-width:55%}
-  .how-tl-node.pos-3{margin-left:12%;margin-right:auto;max-width:55%}
-  .how-tl-node.pos-4{margin-left:auto;margin-right:12%;max-width:55%}
+  /* Alternating layout - offset from the trail */
+  .how-tl-node.pos-1{margin-left:0;margin-right:auto;max-width:50%}
+  .how-tl-node.pos-2{margin-left:auto;margin-right:0;max-width:50%}
+  .how-tl-node.pos-3{margin-left:0;margin-right:auto;max-width:50%}
+  .how-tl-node.pos-4{margin-left:auto;margin-right:0;max-width:50%}
 
   /* Dot */
   .how-tl-dot{width:44px;height:44px;border-radius:50%;background:#fff;border:3px solid rgba(197,163,93,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:800;color:#C5A35D;font-family:'Playfair Display',Georgia,serif;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
@@ -279,32 +279,27 @@ fbq('track', 'PageView');
       <div class="how-title">How It Works</div>
     </div>
     <div class="how-timeline" id="how-timeline">
-      <!-- SVG curved trail -->
-      <svg class="how-trail-svg" viewBox="0 0 400 480" preserveAspectRatio="none" fill="none">
+      <!-- SVG curved trail - runs through center -->
+      <svg class="how-trail-svg" viewBox="0 0 400 520" preserveAspectRatio="none" fill="none">
         <defs>
           <linearGradient id="trailGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#C5A35D" stop-opacity="0.6"/>
-            <stop offset="50%" stop-color="#C5A35D" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="#C5A35D" stop-opacity="0.05"/>
+            <stop offset="0%" stop-color="#C5A35D" stop-opacity="0.5"/>
+            <stop offset="60%" stop-color="#C5A35D" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#C5A35D" stop-opacity="0.04"/>
           </linearGradient>
           <filter id="trailGlow">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feGaussianBlur stdDeviation="4" result="blur"/>
             <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <!-- Glow layer -->
-        <path d="M100,30 C100,30 320,60 310,140 C300,220 80,220 90,300 C100,380 320,370 310,450" stroke="rgba(197,163,93,0.08)" stroke-width="20" stroke-linecap="round" fill="none"/>
+        <!-- Wide soft glow -->
+        <path d="M200,20 C340,50 360,100 300,160 C220,240 100,220 120,310 C140,390 280,380 300,430 C320,470 260,510 200,510" stroke="rgba(197,163,93,0.06)" stroke-width="32" stroke-linecap="round" fill="none"/>
         <!-- Main trail -->
-        <path d="M100,30 C100,30 320,60 310,140 C300,220 80,220 90,300 C100,380 320,370 310,450" stroke="url(#trailGrad)" stroke-width="3" stroke-linecap="round" fill="none" filter="url(#trailGlow)"/>
-        <!-- Dot highlights along the path -->
-        <circle cx="100" cy="30" r="4" fill="#C5A35D" opacity="0.5"/>
-        <circle cx="310" cy="140" r="3" fill="#C5A35D" opacity="0.3"/>
-        <circle cx="90" cy="300" r="3" fill="#C5A35D" opacity="0.2"/>
-        <circle cx="310" cy="450" r="3" fill="#C5A35D" opacity="0.1"/>
+        <path d="M200,20 C340,50 360,100 300,160 C220,240 100,220 120,310 C140,390 280,380 300,430 C320,470 260,510 200,510" stroke="url(#trailGrad)" stroke-width="2.5" stroke-linecap="round" fill="none" filter="url(#trailGlow)" stroke-dasharray="8,6"/>
       </svg>
 
-      <!-- Step 1 - top left -->
-      <div class="how-tl-node pos-1" style="padding-top:4px;">
+      <!-- Step 1 - left -->
+      <div class="how-tl-node pos-1" style="padding-top:10px;">
         <div class="how-tl-dot pulse">1</div>
         <div class="how-tl-card">
           <h3>Fill Out a Quick Application</h3>
@@ -314,7 +309,7 @@ fbq('track', 'PageView');
       </div>
 
       <!-- Step 2 - right -->
-      <div class="how-tl-node pos-2" style="padding-top:56px;">
+      <div class="how-tl-node pos-2" style="padding-top:60px;">
         <div class="how-tl-dot">2</div>
         <div class="how-tl-card">
           <h3>Receive a Call From Us</h3>
@@ -324,7 +319,7 @@ fbq('track', 'PageView');
       </div>
 
       <!-- Step 3 - left -->
-      <div class="how-tl-node pos-3" style="padding-top:56px;">
+      <div class="how-tl-node pos-3" style="padding-top:60px;">
         <div class="how-tl-dot">3</div>
         <div class="how-tl-card">
           <h3>Get Your Personalized Offer</h3>
@@ -334,7 +329,7 @@ fbq('track', 'PageView');
       </div>
 
       <!-- Step 4 - right -->
-      <div class="how-tl-node pos-4" style="padding-top:56px;">
+      <div class="how-tl-node pos-4" style="padding-top:60px;">
         <div class="how-tl-dot">4</div>
         <div class="how-tl-card">
           <h3>Get Funded</h3>
