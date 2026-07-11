@@ -155,14 +155,18 @@
   /* Step nodes */
   .how-tl-node{position:relative;z-index:3;display:flex;align-items:flex-start;gap:14px;padding-bottom:16px}
 
-  /* Alternating layout - offset from the trail */
-  .how-tl-node.pos-1{margin-left:0;margin-right:auto;max-width:50%}
-  .how-tl-node.pos-2{margin-left:auto;margin-right:0;max-width:50%}
-  .how-tl-node.pos-3{margin-left:0;margin-right:auto;max-width:50%}
-  .how-tl-node.pos-4{margin-left:auto;margin-right:0;max-width:50%}
+  /* Alternating layout - dot near center, text on the outside */
+  .how-tl-node.pos-1{flex-direction:row-reverse;margin-left:0;margin-right:auto;max-width:58%;padding-left:0}
+  .how-tl-node.pos-1 .how-tl-card{text-align:right}
+  .how-tl-node.pos-2{flex-direction:row;margin-left:auto;margin-right:0;max-width:58%;padding-right:0}
+  .how-tl-node.pos-2 .how-tl-card{text-align:left}
+  .how-tl-node.pos-3{flex-direction:row-reverse;margin-left:0;margin-right:auto;max-width:58%;padding-left:0}
+  .how-tl-node.pos-3 .how-tl-card{text-align:right}
+  .how-tl-node.pos-4{flex-direction:row;margin-left:auto;margin-right:0;max-width:58%;padding-right:0}
+  .how-tl-node.pos-4 .how-tl-card{text-align:left}
 
   /* Dot */
-  .how-tl-dot{width:44px;height:44px;border-radius:50%;background:#fff;border:3px solid rgba(197,163,93,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:800;color:#C5A35D;font-family:'Playfair Display',Georgia,serif;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+  .how-tl-dot{width:44px;height:44px;border-radius:50%;background:#fff;border:3px solid rgba(197,163,93,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:800;color:#C5A35D;font-family:'Playfair Display',Georgia,serif;box-shadow:0 2px 12px rgba(0,0,0,0.06);position:relative;z-index:4}
 
   /* Pulse on step 1 */
   .how-tl-dot.pulse{border-color:#C5A35D;background:linear-gradient(135deg,rgba(197,163,93,0.12),rgba(197,163,93,0.04));animation:dotPulse 2.5s ease-in-out infinite}
@@ -293,9 +297,9 @@ fbq('track', 'PageView');
           </filter>
         </defs>
         <!-- Wide soft glow -->
-        <path d="M200,20 C340,50 360,100 300,160 C220,240 100,220 120,310 C140,390 280,380 300,430 C320,470 260,510 200,510" stroke="rgba(197,163,93,0.06)" stroke-width="32" stroke-linecap="round" fill="none"/>
+        <path d="M230,30 C330,60 340,110 270,155 C180,210 160,240 130,300 C110,350 170,390 230,420 C290,445 310,480 270,510" stroke="rgba(197,163,93,0.06)" stroke-width="32" stroke-linecap="round" fill="none"/>
         <!-- Main trail -->
-        <path d="M200,20 C340,50 360,100 300,160 C220,240 100,220 120,310 C140,390 280,380 300,430 C320,470 260,510 200,510" stroke="url(#trailGrad)" stroke-width="2.5" stroke-linecap="round" fill="none" filter="url(#trailGlow)" stroke-dasharray="8,6"/>
+        <path d="M230,30 C330,60 340,110 270,155 C180,210 160,240 130,300 C110,350 170,390 230,420 C290,445 310,480 270,510" stroke="url(#trailGrad)" stroke-width="2.5" stroke-linecap="round" fill="none" filter="url(#trailGlow)" stroke-dasharray="8,6"/>
       </svg>
 
       <!-- Step 1 - left -->
