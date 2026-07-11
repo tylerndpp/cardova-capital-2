@@ -989,16 +989,25 @@ function drawTrail() {
     });
   }
 
-  // Build smooth cubic bezier path through all points
+  // Build dramatic S-curve through all points
   var d = 'M' + points[0].x + ',' + points[0].y;
   for (var i = 0; i < points.length - 1; i++) {
     var curr = points[i];
     var next = points[i + 1];
-    var cpx1 = curr.x + (next.x - curr.x) * 0.5;
-    var cpy1 = curr.y;
-    var cpx2 = next.x - (next.x - curr.x) * 0.5;
-    var cpy2 = next.y;
-    d += ' C' + cpx1 + ',' + cpy1 + ' ' + cpx2 + ',' + cpy2 + ' ' + next.x + ',' + next.y;
+    var midY = (curr.y + next.y) / 2;
+    // Wide sweeping control points — overshoot horizontally for dramatic curves
+    var overshoot = rect.width * 0.3;
+    var cpx1, cpx2;
+    if (i % 2 === 0) {
+      // Curve sweeps right
+      cpx1 = Math.max(curr.x, next.x) + overshoot;
+      cpx2 = Math.max(curr.x, next.x) + overshoot;
+    } else {
+      // Curve sweeps left
+      cpx1 = Math.min(curr.x, next.x) - overshoot;
+      cpx2 = Math.min(curr.x, next.x) - overshoot;
+    }
+    d += ' C' + cpx1 + ',' + midY + ' ' + cpx2 + ',' + midY + ' ' + next.x + ',' + next.y;
   }
 
   svg.setAttribute('width', rect.width);
