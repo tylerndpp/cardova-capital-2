@@ -895,10 +895,10 @@ function submitForm() {
   };
   fetch('/api/notify', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:slackMsg.text}),keepalive:true}).catch(function(){});
 
-  // Lead Distro (qualified leads only)
+  // Route lead to buyer(s) (qualified leads only)
   if (qualified) {
     var nameParts = (data.fullName || '').trim().split(/\s+/);
-    var leadDistroData = {
+    var routeLeadData = {
       first_name: nameParts[0] || '',
       last_name: nameParts.slice(1).join(' ') || '',
       email: data.email || '',
@@ -915,30 +915,7 @@ function submitForm() {
       funding_timeline: data.fundingTimeline || '',
       business_name: data.businessName || ''
     };
-    fetch('/api/lead', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(leadDistroData),keepalive:true}).catch(function(){});
-  }
-
-  // Make.com webhook (qualified leads only)
-  if (qualified) {
-    var webhookData = {
-      timestamp: new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}),
-      businessName: String(data.businessName || ''),
-      fullName: String(data.fullName || ''),
-      email: String(data.email || ''),
-      phone: String(data.phone || ''),
-      fundingAmount: String(data.amount || ''),
-      timeInBusiness: String(data.timeInBusiness || ''),
-      bankAccount: String(data.hasBankAccount || ''),
-      negativeBalances: String(data.negativeBalances || ''),
-      defaultedOnLoan: String(data.defaultedOnLoan || ''),
-      loanPurpose: String(data.loanPurpose || ''),
-      monthlySales: String(data.monthlySales || ''),
-      bankStatements: String(data.hasBankStatements || ''),
-      creditScore: String(data.creditScore || ''),
-      fundingTimeline: String(data.fundingTimeline || ''),
-      qualified: 'Yes'
-    };
-    fetch('https://hook.us2.make.com/otbcpkurg5q1syxapsvbt5y8r1nk9d28', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(webhookData),keepalive:true}).catch(function(){});
+    fetch('/api/route-lead', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(routeLeadData),keepalive:true}).catch(function(){});
   }
 
   var params = new URLSearchParams({
