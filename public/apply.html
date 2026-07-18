@@ -895,25 +895,28 @@ function submitForm() {
   };
   fetch('/api/notify', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:slackMsg.text}),keepalive:true}).catch(function(){});
 
-  // Lead Distro
-  var nameParts = (data.fullName || '').trim().split(/\s+/);
-  var leadDistroData = {
-    first_name: nameParts[0] || '',
-    last_name: nameParts.slice(1).join(' ') || '',
-    email: data.email || '',
-    phone: (data.phone || '').replace(/\D/g,''),
-    funding_amount: data.amount || '',
-    time_in_business: data.timeInBusiness || '',
-    bank_account: data.hasBankAccount || '',
-    negative_balance: data.negativeBalances || '',
-    defaulted_on_loan: data.defaultedOnLoan || '',
-    loan_purpose: data.loanPurpose || '',
-    monthly_sales: data.monthlySales || '',
-    bank_statements: data.hasBankStatements || '',
-    credit_score: data.creditScore || '',
-    funding_timeline: data.fundingTimeline || ''
-  };
-  fetch('/api/lead', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(leadDistroData),keepalive:true}).catch(function(){});
+  // Lead Distro (qualified leads only)
+  if (qualified) {
+    var nameParts = (data.fullName || '').trim().split(/\s+/);
+    var leadDistroData = {
+      first_name: nameParts[0] || '',
+      last_name: nameParts.slice(1).join(' ') || '',
+      email: data.email || '',
+      phone: (data.phone || '').replace(/\D/g,''),
+      funding_amount: data.amount || '',
+      time_in_business: data.timeInBusiness || '',
+      bank_account: data.hasBankAccount || '',
+      negative_balance: data.negativeBalances || '',
+      defaulted_on_loan: data.defaultedOnLoan || '',
+      loan_purpose: data.loanPurpose || '',
+      monthly_sales: data.monthlySales || '',
+      bank_statements: data.hasBankStatements || '',
+      credit_score: data.creditScore || '',
+      funding_timeline: data.fundingTimeline || '',
+      business_name: data.businessName || ''
+    };
+    fetch('/api/lead', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(leadDistroData),keepalive:true}).catch(function(){});
+  }
 
   // Make.com webhook (qualified leads only)
   if (qualified) {
