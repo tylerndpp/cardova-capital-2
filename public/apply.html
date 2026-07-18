@@ -408,7 +408,7 @@ fbq('track', 'PageView');
 
 
 <script>
-const TOTAL_STEPS = 12;
+const TOTAL_STEPS = 13;
 
 function renderTrustBadges() {
   return '<div style="display:flex;justify-content:center;gap:20px;margin-top:24px;padding-top:20px;border-top:1px solid #EDEFF7;">' +
@@ -430,7 +430,7 @@ let currentStep = 0;
 let data = {
   amount:'', timeInBusiness:'', hasBankAccount:'', negativeBalances:'', loanPurpose:'',
   monthlySales:'', creditScore:'',
-  fundingTimeline:'', fullName:'', email:'', phone:''
+  fundingTimeline:'', businessName:'', fullName:'', email:'', phone:''
 };
 
 function formatPhone(val) {
@@ -451,7 +451,7 @@ function updateProgress() {
   var groupSteps = [
     {start:0, end:4},  // Business: steps 0-4
     {start:5, end:9},  // Financial: steps 5-9
-    {start:10, end:11}  // Your Info: steps 10-11
+    {start:10, end:12}  // Your Info: steps 10-12
   ];
 
   var dots = document.querySelectorAll('.progress-dot');
@@ -564,12 +564,17 @@ function renderStep() {
       break;
     case 10:
       html = renderBack() +
-        '<h2 class="question-title" style="color:#C5A35D;">Only a few more questions!</h2>' +
-        '<p style="text-align:center;font-size:17px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;font-weight:600;">What is your full name?</p>' +
-        '<div class="input-wrapper"><input type="text" class="text-input" id="full-name" placeholder="First and last name" value="'+(data.fullName||'')+'" oninput="data.fullName=this.value" onkeydown="if(event.key===\'Enter\')goNext()"></div>' +
+        '<h2 class="question-title">What is your business name?</h2>' +
+        '<div class="input-wrapper"><input type="text" class="text-input" id="business-name" placeholder="Legal business name" value="'+(data.businessName||'')+'" oninput="data.businessName=this.value" onkeydown="if(event.key===\'Enter\')goNext()"></div>' +
         '<div id="error-area"></div><button class="continue-btn" onclick="goNext()">Continue</button>';
       break;
     case 11:
+      html = renderBack() +
+        '<h2 class="question-title">What is your full name?</h2>' +
+        '<div class="input-wrapper"><input type="text" class="text-input" id="full-name" placeholder="First and last name" value="'+(data.fullName||'')+'" oninput="data.fullName=this.value" onkeydown="if(event.key===\'Enter\')goNext()"></div>' +
+        '<div id="error-area"></div><button class="continue-btn" onclick="goNext()">Continue</button>';
+      break;
+    case 12:
       html = renderBack() +
         '<div style="text-align:center;margin-bottom:16px;">' +
           '<div style="width:52px;height:52px;border-radius:50%;background:#C5A35D;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>' +
@@ -621,7 +626,7 @@ function renderStep() {
   else group = 2;
   var check = '\u2713';
   var lineFills = document.querySelectorAll('.landing-line-fill');
-  var groupSteps = [{start:0,end:4},{start:5,end:9},{start:10,end:11}];
+  var groupSteps = [{start:0,end:4},{start:5,end:9},{start:10,end:12}];
   for (var i = 0; i < 3; i++) {
     stepNums[i].className = 'landing-step-num';
     stepTexts[i].className = 'landing-step-text';
@@ -646,7 +651,7 @@ function renderStep() {
   }
 
   setTimeout(() => {
-    const el = document.getElementById('full-name') || document.getElementById('email-input');
+    const el = document.getElementById('business-name') || document.getElementById('full-name') || document.getElementById('email-input');
     if (el) el.focus();
   }, 280);
 }
@@ -690,11 +695,16 @@ function validate() {
   ea.innerHTML = '';
   switch(currentStep) {
     case 10:
+      if (!data.businessName || !data.businessName.trim()) {
+        ea.innerHTML='<p class="error-msg">Please enter your business name</p>'; return false;
+      }
+      return true;
+    case 11:
       if (!data.fullName || !data.fullName.trim()) {
         ea.innerHTML='<p class="error-msg">Please enter your name</p>'; return false;
       }
       return true;
-    case 11:
+    case 12:
       if (!phoneVerified) {
         ea.innerHTML='<p class="error-msg">Please verify your phone number first</p>'; return false;
       }
@@ -842,6 +852,7 @@ function submitForm() {
   var qualified = isQualified(data);
   var payload = {
     timestamp: new Date().toLocaleString(),
+    businessName: data.businessName || '',
     name: data.fullName || '',
     email: data.email || '',
     phone: data.phone || '',
@@ -868,6 +879,7 @@ function submitForm() {
   var status = qualified ? 'Qualified Lead' : 'Unqualified Lead';
   var slackMsg = {
     text: emoji + ' <!channel> *New ' + status + '*\n' +
+      '>*Business:* ' + (data.businessName || 'N/A') + '\n' +
       '>*Name:* ' + (data.fullName || 'N/A') + '\n' +
       '>*Phone:* ' + (data.phone || 'N/A') + '\n' +
       '>*Email:* ' + (data.email || 'N/A') + '\n' +
@@ -887,6 +899,7 @@ function submitForm() {
   if (qualified) {
     var webhookData = {
       timestamp: new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}),
+      businessName: String(data.businessName || ''),
       fullName: String(data.fullName || ''),
       email: String(data.email || ''),
       phone: String(data.phone || ''),
@@ -906,6 +919,7 @@ function submitForm() {
   }
 
   var params = new URLSearchParams({
+    businessName: data.businessName || '',
     name: data.fullName || '',
     email: data.email || '',
     phone: data.phone || '',
