@@ -20,6 +20,7 @@ module.exports = async function handler(req, res) {
     bank_statements: lead.bank_statements || '',
     credit_score: lead.credit_score || '',
     funding_timeline: lead.funding_timeline || '',
+    business_name: lead.business_name || '',
   };
 
   try {
