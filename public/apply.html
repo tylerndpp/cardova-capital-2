@@ -408,7 +408,7 @@ fbq('track', 'PageView');
 
 
 <script>
-const TOTAL_STEPS = 13;
+const TOTAL_STEPS = 12;
 
 function renderTrustBadges() {
   return '<div style="display:flex;justify-content:center;gap:20px;margin-top:24px;padding-top:20px;border-top:1px solid #EDEFF7;">' +
@@ -428,7 +428,7 @@ const TIMELINE_OPTIONS = ['Immediately','Within 1 week','Within 2 weeks','Unsure
 
 let currentStep = 0;
 let data = {
-  amount:'', timeInBusiness:'', hasBankAccount:'', negativeBalances:'', loanPurpose:'',
+  amount:'', timeInBusiness:'', hasBankAccount:'', loanPurpose:'',
   monthlySales:'', creditScore:'',
   fundingTimeline:'', businessName:'', fullName:'', email:'', phone:''
 };
@@ -441,17 +441,17 @@ function formatPhone(val) {
 }
 
 function updateProgress() {
-  // Steps 0-4 = Business (group 0), Steps 5-9 = Financial (group 1), Steps 10-11 = Your Info (group 2)
+  // Steps 0-3 = Business (group 0), Steps 4-8 = Financial (group 1), Steps 9-11 = Your Info (group 2)
   var group;
-  if (currentStep <= 4) group = 0;
-  else if (currentStep <= 9) group = 1;
+  if (currentStep <= 3) group = 0;
+  else if (currentStep <= 8) group = 1;
   else group = 2;
 
   // Steps within each group for connector fill
   var groupSteps = [
-    {start:0, end:4},  // Business: steps 0-4
-    {start:5, end:9},  // Financial: steps 5-9
-    {start:10, end:12}  // Your Info: steps 10-12
+    {start:0, end:3},  // Business: steps 0-3
+    {start:4, end:8},  // Financial: steps 4-8
+    {start:9, end:11}  // Your Info: steps 9-11
   ];
 
   var dots = document.querySelectorAll('.progress-dot');
@@ -528,53 +528,48 @@ function renderStep() {
         renderToggle('hasBankAccount') + renderTrustBadges();
       break;
     case 3:
-      html = renderBack() + '<h2 class="question-title">In any of the last 4 months, has your business bank account had 3 or more balances in the negative?</h2>' +
-        '<p style="text-align:center;font-size:14px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;">This helps lenders assess account stability.</p>' +
-        renderToggle('negativeBalances') + renderTrustBadges();
-      break;
-    case 4:
       html = renderBack() + '<h2 class="question-title">Have you defaulted on a business loan before?</h2>' +
         '<p style="text-align:center;font-size:14px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;">Some lenders require decent business loan history.</p>' +
         renderToggle('defaultedOnLoan') + renderTrustBadges();
       break;
-    case 5:
+    case 4:
       html = renderBack() + '<h2 class="question-title">What will you primarily use the business loan for?</h2>' +
         '<p style="text-align:center;font-size:14px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;">This helps us match you with lenders that fit your needs.</p>' +
         renderOptions(LOAN_PURPOSE,'loanPurpose') + renderTrustBadges();
       break;
-    case 6:
+    case 5:
       html = renderBack() + '<h2 class="question-title">What are your average monthly sales?</h2>' +
         '<p style="text-align:center;font-size:14px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;">This will help lenders assess the right loan terms for you.</p>' +
         renderOptions(MONTHLY_SALES,'monthlySales') + renderTrustBadges();
       break;
-    case 7:
+    case 6:
       html = renderBack() + '<h2 class="question-title">Do you have access to your last 4 months\' bank statements?</h2>' +
         '<p style="text-align:center;font-size:14px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;">In order for a lender to fund your business, they need to track revenue.</p>' +
         renderToggle('hasBankStatements') + renderTrustBadges();
       break;
-    case 8:
+    case 7:
       html = renderBack() + '<h2 class="question-title">What is your approximate credit score?</h2>' +
         '<p style="text-align:center;font-size:14px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;">Don\'t worry, this will not affect your credit score. Knowing your score will help lenders determine your loan rate.</p>' +
         renderOptions(CREDIT_RANGES,'creditScore') + renderTrustBadges();
       break;
-    case 9:
+    case 8:
       html = renderBack() + '<h2 class="question-title">How fast are you looking to get funded?</h2>' +
         '<p style="text-align:center;font-size:14px;color:#6E7180;margin-top:-14px;margin-bottom:24px;line-height:1.5;">This helps us know the timeframe of your funding needs.</p>' +
         renderOptions(TIMELINE_OPTIONS,'fundingTimeline') + renderTrustBadges();
       break;
-    case 10:
+    case 9:
       html = renderBack() +
         '<h2 class="question-title">What is your business name?</h2>' +
         '<div class="input-wrapper"><input type="text" class="text-input" id="business-name" placeholder="Legal business name" value="'+(data.businessName||'')+'" oninput="data.businessName=this.value" onkeydown="if(event.key===\'Enter\')goNext()"></div>' +
         '<div id="error-area"></div><button class="continue-btn" onclick="goNext()">Continue</button>';
       break;
-    case 11:
+    case 10:
       html = renderBack() +
         '<h2 class="question-title">What is your full name?</h2>' +
         '<div class="input-wrapper"><input type="text" class="text-input" id="full-name" placeholder="First and last name" value="'+(data.fullName||'')+'" oninput="data.fullName=this.value" onkeydown="if(event.key===\'Enter\')goNext()"></div>' +
         '<div id="error-area"></div><button class="continue-btn" onclick="goNext()">Continue</button>';
       break;
-    case 12:
+    case 11:
       html = renderBack() +
         '<div style="text-align:center;margin-bottom:16px;">' +
           '<div style="width:52px;height:52px;border-radius:50%;background:#C5A35D;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>' +
@@ -621,12 +616,12 @@ function renderStep() {
   var stepNums = document.querySelectorAll('.landing-step-num');
   var stepTexts = document.querySelectorAll('.landing-step-text');
   var group;
-  if (currentStep <= 4) group = 0;
-  else if (currentStep <= 9) group = 1;
+  if (currentStep <= 3) group = 0;
+  else if (currentStep <= 8) group = 1;
   else group = 2;
   var check = '\u2713';
   var lineFills = document.querySelectorAll('.landing-line-fill');
-  var groupSteps = [{start:0,end:4},{start:5,end:9},{start:10,end:12}];
+  var groupSteps = [{start:0,end:3},{start:4,end:8},{start:9,end:11}];
   for (var i = 0; i < 3; i++) {
     stepNums[i].className = 'landing-step-num';
     stepTexts[i].className = 'landing-step-text';
@@ -694,17 +689,17 @@ function validate() {
   if (!ea) return true;
   ea.innerHTML = '';
   switch(currentStep) {
-    case 10:
+    case 9:
       if (!data.businessName || !data.businessName.trim()) {
         ea.innerHTML='<p class="error-msg">Please enter your business name</p>'; return false;
       }
       return true;
-    case 11:
+    case 10:
       if (!data.fullName || !data.fullName.trim()) {
         ea.innerHTML='<p class="error-msg">Please enter your name</p>'; return false;
       }
       return true;
-    case 12:
+    case 11:
       if (!phoneVerified) {
         ea.innerHTML='<p class="error-msg">Please verify your phone number first</p>'; return false;
       }
@@ -756,7 +751,6 @@ function goBack() {
 function isQualified(d) {
   // Hard disqualifiers - instant fail
   if (d.monthlySales === "$0 \u2013 $20,000") return false;
-  if (d.negativeBalances === "Yes") return false;
   // Strike system for everything else
   var strikes = 0;
   if (d.timeInBusiness === "Less than 6 months") strikes++;
@@ -859,7 +853,6 @@ function submitForm() {
     fundingAmount: data.amount || '',
     timeInBusiness: data.timeInBusiness || '',
     bankAccount: data.hasBankAccount || '',
-    negativeBalances: data.negativeBalances || '',
     defaultedOnLoan: data.defaultedOnLoan || '',
     loanPurpose: data.loanPurpose || '',
     monthlySales: data.monthlySales || '',
@@ -906,7 +899,6 @@ function submitForm() {
       funding_amount: data.amount || '',
       time_in_business: data.timeInBusiness || '',
       bank_account: data.hasBankAccount || '',
-      negative_balance: data.negativeBalances || '',
       defaulted_on_loan: data.defaultedOnLoan || '',
       loan_purpose: data.loanPurpose || '',
       monthly_sales: data.monthlySales || '',

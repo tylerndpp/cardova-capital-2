@@ -11,7 +11,6 @@ function isGoodOrExcellentCredit(creditScore) {
 function isEligibleForSimplyCapital(lead) {
   if (['Less than 6 months', '6 – 12 months'].includes(lead.time_in_business)) return false;
   if (lead.defaulted_on_loan === 'Yes') return false;
-  if (lead.negative_balance === 'Yes') return false;
   if (lead.monthly_sales === '$0 – $20,000') return false;
   if (lead.monthly_sales === '$20,000 – $50,000' && !isGoodOrExcellentCredit(lead.credit_score)) return false;
   return true;
@@ -27,7 +26,6 @@ function buildPayload(lead) {
     monthlyRevenue: lead.monthly_sales || '',
     timeInBusiness: lead.time_in_business || '',
     bankAccount: lead.bank_account || '',
-    negativeBalances: lead.negative_balance || '',
     defaultedLoan: lead.defaulted_on_loan || '',
     bankStatements: lead.bank_statements || '',
     loanPurpose: lead.loan_purpose || '',
