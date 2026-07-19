@@ -42,7 +42,14 @@ module.exports = async function handler(req, res) {
 
   const eligibleForSimplyCapital = isEligibleForSimplyCapital(lead);
   const partner = new Date().getMinutes() % 2 === 0 ? 'laRoma' : 'primeDock';
-  const recipients = eligibleForSimplyCapital ? ['simplyCapital', partner] : ['laRoma', 'primeDock'];
+  const isExclusive = Math.random() < 0.33;
+
+  let recipients;
+  if (eligibleForSimplyCapital) {
+    recipients = isExclusive ? ['simplyCapital'] : ['simplyCapital', partner];
+  } else {
+    recipients = isExclusive ? [partner] : ['laRoma', 'primeDock'];
+  }
 
   const results = await Promise.allSettled(
     recipients.map((name) =>
