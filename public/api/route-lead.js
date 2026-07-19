@@ -4,6 +4,14 @@ const BUYERS = {
   primeDock: 'https://hook.us2.make.com/pr34yrpy6fyuiwavvrc5lmgc29e2j7vn',
 };
 
+const BUYER_LABELS = {
+  simplyCapital: 'Simply Capital',
+  laRoma: 'La Roma',
+  primeDock: 'PrimeDock',
+};
+
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyoJ2xxc7MG5vIdb51pZIgvrNdDBhbt2rdnwsOvy8nvH51hJvQB1FdwJ8rXq1N17CLp/exec';
+
 function isGoodOrExcellentCredit(creditScore) {
   return ['Excellent (720+)', 'Good (690 – 719)'].includes(creditScore);
 }
@@ -60,6 +68,25 @@ module.exports = async function handler(req, res) {
       })
     )
   );
+
+  const sheetLog = {
+    timestamp: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
+    fullName: payload.fullName,
+    businessName: payload.businessName,
+    email: payload.email,
+    phone: payload.phone,
+    eligibleForSimplyCapital: eligibleForSimplyCapital ? 'Yes' : 'No',
+    distributionType: isExclusive ? 'Exclusive' : 'Shared',
+    sentTo: recipients.map((name) => BUYER_LABELS[name]).join(' + '),
+    sheet: 'Buyer Routing',
+  };
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(sheetLog),
+    });
+  } catch (e) {}
 
   return res.status(200).json({ sent_to: recipients, results: results.map((r) => r.status) });
 };
