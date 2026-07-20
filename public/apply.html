@@ -440,6 +440,11 @@ function formatPhone(val) {
   return '('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6);
 }
 
+function getCookie(name) {
+  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? match[2] : '';
+}
+
 function updateProgress() {
   // Steps 0-3 = Business (group 0), Steps 4-8 = Financial (group 1), Steps 9-11 = Your Info (group 2)
   var group;
@@ -908,6 +913,16 @@ function submitForm() {
       business_name: data.businessName || ''
     };
     fetch('/api/route-lead', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(routeLeadData),keepalive:true}).catch(function(){});
+
+    // Meta Conversions API (server-side, qualified leads only)
+    var conversionData = {
+      email: data.email || '',
+      phone: data.phone || '',
+      fbp: getCookie('_fbp'),
+      fbc: getCookie('_fbc'),
+      event_source_url: window.location.href
+    };
+    fetch('/api/track-conversion', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(conversionData),keepalive:true}).catch(function(){});
   }
 
   var params = new URLSearchParams({
